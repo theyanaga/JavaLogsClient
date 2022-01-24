@@ -6,6 +6,11 @@ import org.jboss.jandex.ModuleInfo;
 
 public class ServerInputWrapper {
 
+    private static final String LOG_TYPE = "LocalChecksLog";
+    private static final String PASSWORD = "password";
+    private static final String COURSE_ID = "comp524f21_assignment2_F21Assignment2Suite";
+    private static final int LIMIT = 2;
+
     @JsonProperty("body")
     private ServerInput serverInput;
 
@@ -15,11 +20,11 @@ public class ServerInputWrapper {
 
         ServerInput serverInput = new ServerInput();
 
-        serverInput.setCourseId("COMP301");
-        serverInput.setLimit(1);
-        serverInput.setLogType("eclipse");
-        serverInput.setSkip(skip);
-        serverInput.setPassword("password");
+        serverInput.setCourseId(COURSE_ID);
+        serverInput.setLimit(LIMIT);
+        serverInput.setLogType(LOG_TYPE); // Ask Andrew about test logs.
+        serverInput.setSkip(skip); // Label for assignment and concurrency
+        serverInput.setPassword(PASSWORD);
 
         wrapper.setBody(serverInput);
 

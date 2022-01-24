@@ -43,7 +43,7 @@ public class LogsHelper {
         FileOutputStream stream = new FileOutputStream(path +
                 LogsHelper.formatMachineIdToUserId(serverOutput.getMachineId())
                 + "/" + LogsHelper.formatMachineIdToUserId(serverOutput.getMachineId())
-                + "." + fileNumber + ".xml");
+                + "." + fileNumber + LogsResource.FILE_TYPE);
 
         String log = serverOutput.getLog().getJson();
 

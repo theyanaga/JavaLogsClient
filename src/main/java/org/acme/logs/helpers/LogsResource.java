@@ -13,7 +13,8 @@ import java.io.*;
 @Path("/get-cyverse-log")
 public class LogsResource {
 
-    public static final String MY_PATH = "/Users/felipeyanaga/UNC/Research/Logs/";
+    public static final String MY_PATH = "/Users/felipeyanaga/UNC/Research/LocalCheckLogs/";
+    public static final String FILE_TYPE = ".csv";
 
     @Inject
     @RestClient
@@ -28,37 +29,35 @@ public class LogsResource {
 
         ServerOutputWrapper serverOutputWrapper = logsService.getLogs(serverRequestBodyWrapper);
 
-        File directory = new File(MY_PATH + LogsHelper.formatMachineIdToUserId(serverOutputWrapper.getLogs().get(0).getMachineId()));
-
-        int fileNumber;
-
-        if (!directory.exists()) {
-            directory.mkdir();
-            fileNumber = 0;
-        }
-        else {
-            if (directory.listFiles() == null) {
-                fileNumber = 0;
-            }
-            else {
-                fileNumber = directory.listFiles().length;
-            }
-        }
-
-        FileOutputStream stream = new FileOutputStream(MY_PATH +
-                LogsHelper.formatMachineIdToUserId(serverOutputWrapper.getLogs().get(0).getMachineId())
-                + "/" + LogsHelper.formatMachineIdToUserId(serverOutputWrapper.getLogs().get(0).getMachineId())
-                + "." + fileNumber + ".xml");
-
-        String log = serverOutputWrapper.getLogs().get(0).getLog().getJson();
-
-        String logWithRemovedQuotation = LogsHelper.deleteUselesQuotationMark(log);
-
-        stream.write(logWithRemovedQuotation.getBytes());
-
-        stream.close();
-
-        System.out.println("we got here");
+//        File directory = new File(MY_PATH + LogsHelper.formatMachineIdToUserId(serverOutputWrapper.getLogs().get(0).getMachineId()));
+//
+//        int fileNumber;
+//
+//        if (!directory.exists()) {
+//            directory.mkdir();
+//            fileNumber = 0;
+//        }
+//        else {
+//            if (directory.listFiles() == null) {
+//                fileNumber = 0;
+//            }
+//            else {
+//                fileNumber = directory.listFiles().length;
+//            }
+//        }
+//
+//        FileOutputStream stream = new FileOutputStream(MY_PATH +
+//                LogsHelper.formatMachineIdToUserId(serverOutputWrapper.getLogs().get(0).getMachineId())
+//                + "/" + LogsHelper.formatMachineIdToUserId(serverOutputWrapper.getLogs().get(0).getMachineId())
+//                + "." + fileNumber + FILE_TYPE);
+//
+//        String log = serverOutputWrapper.getLogs().get(0).getLog().getJson();
+//
+//        String logWithRemovedQuotation = LogsHelper.deleteUselesQuotationMark(log);
+//
+//        stream.write(logWithRemovedQuotation.getBytes());
+//
+//        stream.close();
 
         return serverOutputWrapper;
     }
