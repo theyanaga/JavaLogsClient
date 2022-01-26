@@ -20,10 +20,6 @@ public class FileHelper {
         CSVParser parser = new CSVParser(in, CSVFormat.DEFAULT.builder().setHeader("#, Time, %Passes, Change, Test, Pass, Partial, Fail, Untested, SessionNumber, SessionRunNumber, IsSuite, SuiteTests, PrerequisiteTests, ExtraCreditTests, TestScores, FailFromPreReq, Blank").setSkipHeaderRecord(true).build());
         AssignmentTestManager manager = AssignmentTestManager.ofName("Assignment2");
         for (CSVRecord record : parser.getRecords()) {
-            int sessionId = Integer.parseInt(record.get(9));
-            if (!manager.containsSession(sessionId)) {
-                manager.getAllTestSessions().add(TestSession.ofId(sessionId));
-            }
             TestRun testRun = TestRun.ofLine(Integer.parseInt(record.get(9)), Integer.parseInt(record.get(10)), Boolean.parseBoolean(record.get(11)), record.get(1),
                     record.get(5), record.get(7), record.get(6), record.get(8), record.get(15), manager);
             manager.addNewTestRun(testRun);

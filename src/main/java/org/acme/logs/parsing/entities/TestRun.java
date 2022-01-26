@@ -179,9 +179,20 @@ public class TestRun {
 
     @Override
     public String toString() {
-        return "SessionId: " + this.sessionId + ".\n" +
-                "isSuite: " + this.isSuite + ".\n" +
-                "Time: " + this.time + ".";
+        return "TestRun{" +
+                "manager=" + manager +
+                ", sessionId=" + sessionId +
+                ", runId=" + runId +
+                ", points=" + points +
+                ", totalPoints=" + totalPoints +
+                ", isSuite=" + isSuite +
+                ", time=" + time +
+                ", passedTests=" + passedTests +
+                ", failedTests=" + failedTests +
+                ", partialTests=" + partialTests +
+                ", untestedTests=" + untestedTests +
+                ", testScores=" + testScores +
+                '}';
     }
 }
 

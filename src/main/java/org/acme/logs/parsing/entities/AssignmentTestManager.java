@@ -55,7 +55,4 @@ public class AssignmentTestManager {
         }
     }
 
-    public boolean containsSession(int id) {
-        return mapFromIdToSession.containsKey(id);
-    }
 }

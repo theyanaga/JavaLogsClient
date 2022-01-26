@@ -59,4 +59,14 @@ public class LocalChecksTest {
     public void setTotalPoints(float totalPoints) {
         this.totalPoints = totalPoints;
     }
+
+    @Override
+    public String toString() {
+        return "LocalChecksTest{" +
+                "hasPoints=" + hasPoints +
+                ", name='" + name + '\'' +
+                ", points=" + points +
+                ", totalPoints=" + totalPoints +
+                '}';
+    }
 }
