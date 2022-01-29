@@ -22,6 +22,12 @@ public class LocalChecksTest {
         return new LocalChecksTest(name);
     }
 
+    public boolean isSameTest(String input) {
+        return input.contains(this.name);
+    }
+
+    private int attempts;
+
     private boolean hasPoints;
 
     private String name;
@@ -29,6 +35,14 @@ public class LocalChecksTest {
     private float points;
 
     private float totalPoints;
+
+    public int getAttempts() {
+        return attempts;
+    }
+
+    public void setAttempts(float attempts) {
+        this.attempts = Math.round(attempts);
+    }
 
     public boolean isHasPoints() {
         return hasPoints;
@@ -61,7 +75,8 @@ public class LocalChecksTest {
     @Override
     public String toString() {
         return "LocalChecksTest{" +
-                "hasPoints=" + hasPoints +
+                "attempts=" + attempts +
+                ", hasPoints=" + hasPoints +
                 ", name='" + name + '\'' +
                 ", points=" + points +
                 ", totalPoints=" + totalPoints +

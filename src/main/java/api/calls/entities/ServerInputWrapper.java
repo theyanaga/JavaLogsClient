@@ -1,23 +1,22 @@
-package gradingTools.gradingTools.entities;
+package api.calls.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import gradingTools.entities.ServerInput;
 
 public class ServerInputWrapper {
 
     private static final String LOG_TYPE = "LocalChecksLog";
     private static final String PASSWORD = "password";
     private static final String COURSE_ID = "comp524f21_assignment2_F21Assignment2Suite";
-    private static final int LIMIT = 2;
+    private static final int LIMIT = 1;
 
     @JsonProperty("body")
-    private gradingTools.entities.ServerInput serverInput;
+    private ServerInput serverInput;
 
     public static ServerInputWrapper createServerRequest(int skip) {
 
         ServerInputWrapper wrapper = new ServerInputWrapper();
 
-        gradingTools.entities.ServerInput serverInput = new gradingTools.entities.ServerInput();
+        ServerInput serverInput = new ServerInput();
 
         serverInput.setCourseId(COURSE_ID);
         serverInput.setLimit(LIMIT);
@@ -30,7 +29,7 @@ public class ServerInputWrapper {
         return wrapper;
     }
 
-    public gradingTools.entities.ServerInput getBody() {
+    public ServerInput getBody() {
         return serverInput;
     }
 

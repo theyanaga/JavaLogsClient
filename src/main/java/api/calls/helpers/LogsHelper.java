@@ -1,6 +1,6 @@
-package helpers;
+package api.calls.helpers;
 
-import gradingTools.entities.ServerOutput;
+import api.calls.entities.ServerOutput;
 
 import java.io.File;
 import java.io.FileOutputStream;

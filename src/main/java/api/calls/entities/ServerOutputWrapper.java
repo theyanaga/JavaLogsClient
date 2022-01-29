@@ -1,4 +1,4 @@
-package gradingTools.entities;
+package api.calls.entities;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package gradingTools.helpers;
+package api.calls.helpers;
 
-import gradingTools.entities.ServerOutputWrapper;
-import gradingTools.gradingTools.entities.ServerInputWrapper;
+import api.calls.entities.ServerInputWrapper;
 import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import api.calls.entities.ServerOutputWrapper;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;

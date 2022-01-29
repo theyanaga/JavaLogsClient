@@ -1,8 +1,7 @@
-package gradingTools.helpers;
+package api.calls.helpers;
 
-import gradingTools.gradingTools.entities.ServerInputWrapper;
-import gradingTools.entities.ServerOutputWrapper;
-import helpers.LogsService;
+import api.calls.entities.ServerInputWrapper;
+import api.calls.entities.ServerOutputWrapper;
 import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 

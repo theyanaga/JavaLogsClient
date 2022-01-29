@@ -9,6 +9,7 @@ import gradingTools.logs.localChecksStatistics.collectors.Collector;
 import gradingTools.logs.localChecksStatistics.collectors.IntervalReplayer.*;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.AttemptsCollectorV2;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.FinalStatusCollector;
+import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.TotalAttemptsCollector;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.WorkTimeCollector;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.CollectorManager;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.LocalLogDataAnalyzer;
@@ -114,10 +115,11 @@ public class LocalChecksLogData {
 		Collector [] collectors = {
 			new AttemptsCollectorV2(),
 				new FinalStatusCollector(),
+				new TotalAttemptsCollector()
 //			new ContextBasedWorkTimeIRCollector(),
 //			new FixedWorkTimeIRCollector(),
-			new EditsIRCollector(),
-			new RunsIRCollector(),
+//			new EditsIRCollector(),
+//			new RunsIRCollector(),
 //			new TestFocusedContextBasedWorkTimeIRCollector(),
 //			new TestFocusedFixedWorkTimeIRCollector(),
 			

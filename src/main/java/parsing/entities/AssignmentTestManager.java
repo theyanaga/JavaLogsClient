@@ -1,13 +1,16 @@
 package parsing.entities;
 
-import gradingTools.parsing.entities.TestRun;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class AssignmentTestManager {
+
+    // How do we define what's the latest run?
+    // Who ran the most tests?
+    // We don't have access to the total amount of tests in the assignment.
+
 
     // Contains the name of all tests in the assignment
     private List<TestSession> allTestSessions = new ArrayList<>();

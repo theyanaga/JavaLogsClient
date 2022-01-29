@@ -1,8 +1,5 @@
 package parsing.entities;
 
-import gradingTools.parsing.entities.AssignmentTestManager;
-import gradingTools.parsing.entities.LocalChecksTest;
-
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -10,12 +7,12 @@ import java.util.List;
 
 public class TestRun {
 
-    private final gradingTools.parsing.entities.AssignmentTestManager manager;
+    private final AssignmentTestManager manager;
 
     //Make a builder out of this
     private TestRun(int sessionId, int runId, boolean isSuite, String time, String passedTestsString,
                     String failedTestsString, String partialTestsString, String untestedTests, String testScores,
-                    gradingTools.parsing.entities.AssignmentTestManager aManager) {
+                    AssignmentTestManager aManager) {
         this.sessionId = sessionId;
         this.isSuite = isSuite;
         this.manager = aManager;
@@ -55,15 +52,15 @@ public class TestRun {
     private ZonedDateTime time;
 
     // For scores, just sum the passed tests
-    private List<gradingTools.parsing.entities.LocalChecksTest> passedTests;
+    private List<LocalChecksTest> passedTests;
 
-    private List<gradingTools.parsing.entities.LocalChecksTest> failedTests;
+    private List<LocalChecksTest> failedTests;
 
-    private List<gradingTools.parsing.entities.LocalChecksTest> partialTests;
+    private List<LocalChecksTest> partialTests;
 
-    private List<gradingTools.parsing.entities.LocalChecksTest> untestedTests;
+    private List<LocalChecksTest> untestedTests;
 
-    private List<gradingTools.parsing.entities.LocalChecksTest> testScores;
+    private List<LocalChecksTest> testScores;
 
     public int getSessionId() {
         return sessionId;
@@ -89,35 +86,35 @@ public class TestRun {
         this.time = time;
     }
 
-    public List<gradingTools.parsing.entities.LocalChecksTest> getPassedTests() {
+    public List<LocalChecksTest> getPassedTests() {
         return passedTests;
     }
 
-    public void setPassedTests(List<gradingTools.parsing.entities.LocalChecksTest> passedTests) {
+    public void setPassedTests(List<LocalChecksTest> passedTests) {
         this.passedTests = passedTests;
     }
 
-    public List<gradingTools.parsing.entities.LocalChecksTest> getFailedTests() {
+    public List<LocalChecksTest> getFailedTests() {
         return failedTests;
     }
 
-    public void setFailedTests(List<gradingTools.parsing.entities.LocalChecksTest> failedTests) {
+    public void setFailedTests(List<LocalChecksTest> failedTests) {
         this.failedTests = failedTests;
     }
 
-    public List<gradingTools.parsing.entities.LocalChecksTest> getPartialTests() {
+    public List<LocalChecksTest> getPartialTests() {
         return partialTests;
     }
 
-    public void setPartialTests(List<gradingTools.parsing.entities.LocalChecksTest> partialTests) {
+    public void setPartialTests(List<LocalChecksTest> partialTests) {
         this.partialTests = partialTests;
     }
 
-    public List<gradingTools.parsing.entities.LocalChecksTest> getUntestedTests() {
+    public List<LocalChecksTest> getUntestedTests() {
         return untestedTests;
     }
 
-    public void setUntestedTests(List<gradingTools.parsing.entities.LocalChecksTest> untestedTests) {
+    public void setUntestedTests(List<LocalChecksTest> untestedTests) {
         this.untestedTests = untestedTests;
     }
 
@@ -133,20 +130,20 @@ public class TestRun {
         return this.runId;
     }
 
-    private List<gradingTools.parsing.entities.LocalChecksTest> parseTestString(String testString) {
+    private List<LocalChecksTest> parseTestString(String testString) {
         String[] splittedTests = testString.split(" ");
-        List<gradingTools.parsing.entities.LocalChecksTest> tests = new ArrayList<>();
+        List<LocalChecksTest> tests = new ArrayList<>();
         for (String test : splittedTests) {
-            tests.add(gradingTools.parsing.entities.LocalChecksTest.ofName(test));
+            tests.add(LocalChecksTest.ofName(test));
             addTestName(test);
         }
 
         return tests;
     }
 
-    private List<gradingTools.parsing.entities.LocalChecksTest> parseTestScoreString(String testScoresString) {
+    private List<LocalChecksTest> parseTestScoreString(String testScoresString) {
         String[] splittedTests = testScoresString.split(" ");
-        List<gradingTools.parsing.entities.LocalChecksTest> tests = new ArrayList<>();
+        List<LocalChecksTest> tests = new ArrayList<>();
         for (String test : splittedTests) {
             String[] testAndScore = test.split("-");
             String[] testScores = testAndScore[1].replaceAll("\\(", "")
@@ -171,7 +168,7 @@ public class TestRun {
         putScoreInTest(testName, points, totalPoints, this.partialTests);
     }
 
-    private void putScoreInTest(String testName, float points, float totalPoints, List<gradingTools.parsing.entities.LocalChecksTest> tests) {
+    private void putScoreInTest(String testName, float points, float totalPoints, List<LocalChecksTest> tests) {
         for (LocalChecksTest test : tests) {
             if (test.getName().equalsIgnoreCase(testName)) {
                 test.setPoints(points);

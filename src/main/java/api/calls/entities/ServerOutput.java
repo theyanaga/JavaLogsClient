@@ -1,4 +1,4 @@
-package gradingTools.gradingTools.entities;
+package api.calls.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

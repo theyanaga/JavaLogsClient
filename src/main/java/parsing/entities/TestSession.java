@@ -1,7 +1,5 @@
 package parsing.entities;
 
-import gradingTools.parsing.entities.TestRun;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ public class TestSession {
 
     private List<String> allTestNames = new ArrayList<>();
 
-    private List<gradingTools.parsing.entities.TestRun> testRuns = new ArrayList<>();
+    private List<TestRun> testRuns = new ArrayList<>();
 
     private TestSession(int sessionId) {
         this.sessionId = sessionId;
@@ -27,7 +25,7 @@ public class TestSession {
         return new TestSession(sessionId);
     }
 
-    public void addTestRun(gradingTools.parsing.entities.TestRun testRun) {
+    public void addTestRun(TestRun testRun) {
         if (!isRepeated(testRun)) {
             testRuns.add(testRun);
             this.sessionPoints = this.sessionPoints + testRun.getPoints();
@@ -35,8 +33,8 @@ public class TestSession {
         }
     }
 
-    public boolean isRepeated(gradingTools.parsing.entities.TestRun testRun) {
-        for (gradingTools.parsing.entities.TestRun run : this.testRuns) {
+    public boolean isRepeated(TestRun testRun) {
+        for (TestRun run : this.testRuns) {
             if (run.getRunId() == testRun.getRunId() && run.getSessionId() == testRun.getSessionId()) {
                 return true;
             }
@@ -74,7 +72,7 @@ public class TestSession {
         this.sessionPoints = sessionPoints;
     }
 
-    public List<gradingTools.parsing.entities.TestRun> getTestRuns() {
+    public List<TestRun> getTestRuns() {
         return testRuns;
     }
 
