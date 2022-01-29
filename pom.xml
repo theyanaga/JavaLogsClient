@@ -30,6 +30,12 @@
   </dependencyManagement>
   <dependencies>
     <dependency>
+      <groupId>some.group</groupId>
+      <artifactId>non-maven-proj</artifactId>
+      <version>1
+      </version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-csv</artifactId>
       <version>1.9.0</version>
