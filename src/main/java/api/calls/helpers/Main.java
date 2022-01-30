@@ -54,21 +54,21 @@ public class Main {
 //            }
 
 
-            int skipAmount = 13506; // Last file to be retrived000000000
-            boolean continueLoop = true;
-            while (continueLoop) {
-                ServerInputWrapper serverInputWrapper = ServerInputWrapper.createServerRequest(skipAmount);
-                ServerOutputWrapper wrapper = logsService.getLogs(serverInputWrapper);
-                if (wrapper.getLogs().isEmpty()) {
-                    System.out.println("The response is empty");
-                    System.out.println(skipAmount);
-                    continueLoop = false;
-                }
-                else {
-                    skipAmount = skipAmount + 1;
-                }
-
-            }
+//            int skipAmount = 13506; // Last file to be retrived000000000
+//            boolean continueLoop = true;
+//            while (continueLoop) {
+//                ServerInputWrapper serverInputWrapper = ServerInputWrapper.createServerRequest(skipAmount);
+//                ServerOutputWrapper wrapper = logsService.getLogs(serverInputWrapper);
+//                if (wrapper.getLogs().isEmpty()) {
+//                    System.out.println("The response is empty");
+//                    System.out.println(skipAmount);
+//                    continueLoop = false;
+//                }
+//                else {
+//                    skipAmount = skipAmount + 1;
+//                }
+//
+//            }
 
             Quarkus.waitForExit();
             return 0;

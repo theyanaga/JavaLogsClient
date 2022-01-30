@@ -32,8 +32,7 @@
     <dependency>
       <groupId>some.group</groupId>
       <artifactId>non-maven-proj</artifactId>
-      <version>1
-      </version>
+      <version>1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -77,6 +76,10 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-hibernate-orm-panache</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-jdbc-postgresql</artifactId>
     </dependency>
   </dependencies>
   <build>
