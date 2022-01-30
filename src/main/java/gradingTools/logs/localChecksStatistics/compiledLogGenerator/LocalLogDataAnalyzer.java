@@ -154,4 +154,35 @@ public class LocalLogDataAnalyzer {
 		writer.append(sb.toString());
 		writer.close();
 	}
+
+	// Added by Felipe
+	public static List<String> runEvaluationFromDatabase(List<String> logData, CollectorManager cm) {
+		List<String> output = new ArrayList<>();
+		String [] tests = determineTests(logData);
+
+		//Setting up collectors TODO add functionality to collector manager
+		for(Collector c:cm.getCollectors()) {
+			if(c.requiresStudentName())
+				c.setStudentName("User");
+			if(c.requiresTestNames())
+				c.setTestNames(tests);
+			if(c.requiresSuiteMapping())
+				throw new IllegalArgumentException("Tests which require suite to test mapping are unable to be run currently");
+		}
+
+
+
+		//Collector manager processess the provided log
+		cm.processLog(logData, 1);
+
+		List<String[]> data = cm.getCertainHeadersAndData(null);
+
+		for(String [] dataPoint:data) {
+			output.add(dataPoint[0]+":"+dataPoint[1]);
+				System.out.println(dataPoint[0]+":"+dataPoint[1]);
+		}
+		cm.reset();
+
+		return output;
+	}
 }
