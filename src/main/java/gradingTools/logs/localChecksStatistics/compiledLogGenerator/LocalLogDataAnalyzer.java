@@ -179,7 +179,7 @@ public class LocalLogDataAnalyzer {
 
 		for(String [] dataPoint:data) {
 			output.add(dataPoint[0]+":"+dataPoint[1]);
-				System.out.println(dataPoint[0]+":"+dataPoint[1]);
+//				System.out.println(dataPoint[0]+":"+dataPoint[1]);
 		}
 		cm.reset();
 

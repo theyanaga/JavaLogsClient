@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.util.Objects;
 
 @Entity
 public class Users extends PanacheEntity {
@@ -16,6 +17,11 @@ public class Users extends PanacheEntity {
     }
 
     public Users() {
+    }
+
+    public static Users of(String aMachineId) {
+        Users aUser = Users.find("machine_id", aMachineId).firstResult();
+        return Objects.requireNonNullElseGet(aUser, () -> new Users(aMachineId));
     }
 
     public String getMachineId() {

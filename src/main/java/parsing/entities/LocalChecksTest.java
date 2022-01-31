@@ -1,5 +1,10 @@
 package parsing.entities;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import gradingTools.logs.LocalChecksLogData;
+
+import java.util.Objects;
+
 public class LocalChecksTest {
 
     private LocalChecksTest(String name) {
@@ -26,7 +31,7 @@ public class LocalChecksTest {
         return input.contains(this.name);
     }
 
-    private int attempts;
+    private float attempts;
 
     private boolean hasPoints;
 
@@ -36,12 +41,22 @@ public class LocalChecksTest {
 
     private float totalPoints;
 
-    public int getAttempts() {
+    private TestStatus status;
+
+    public TestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = TestStatus.fromString(status);
+    }
+
+    public float getAttempts() {
         return attempts;
     }
 
     public void setAttempts(float attempts) {
-        this.attempts = Math.round(attempts);
+        this.attempts = attempts;
     }
 
     public boolean isHasPoints() {
@@ -82,4 +97,5 @@ public class LocalChecksTest {
                 ", totalPoints=" + totalPoints +
                 '}';
     }
+
 }
