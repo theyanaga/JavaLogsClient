@@ -34,41 +34,9 @@ public class Main {
         @Override
         public int run(String[] args) throws Exception {
 
-//            for (int i = 0; i < 30; i++) {
-//                ServerInputWrapper serverInputWrapper = ServerInputWrapper.createServerRequest(SKIP + (2 * i));
-//
-//                ServerOutputWrapper serverOutputWrapper = logsService.getLogs(serverInputWrapper);
-//
-//                LOG.debug("Server Output: " + serverOutputWrapper);
-//
-//                for (ServerOutput output : serverOutputWrapper.getLogs()) {
-//                    try {
-//                        LOG.debug("Server Log: " + output);
-//                        LogsHelper.createFile(output, MY_PATH);
-//                    }
-//                    catch (Exception e) {
-//                        System.out.println("Null Pointer b/c Logs");
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-
-
-//            int skipAmount = 13506; // Last file to be retrived000000000
-//            boolean continueLoop = true;
-//            while (continueLoop) {
-//                ServerInputWrapper serverInputWrapper = ServerInputWrapper.createServerRequest(skipAmount);
-//                ServerOutputWrapper wrapper = logsService.getLogs(serverInputWrapper);
-//                if (wrapper.getLogs().isEmpty()) {
-//                    System.out.println("The response is empty");
-//                    System.out.println(skipAmount);
-//                    continueLoop = false;
-//                }
-//                else {
-//                    skipAmount = skipAmount + 1;
-//                }
-//
-//            }
+            for(int i = 0; i < 100; i++) {
+                System.out.println(i);
+            }
 
             Quarkus.waitForExit();
             return 0;

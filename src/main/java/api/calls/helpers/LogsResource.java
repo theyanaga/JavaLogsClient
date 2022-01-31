@@ -51,6 +51,9 @@ public class LogsResource {
     @ClientHeaderParam(name="Connection", value="keep-alive")
     @ClientHeaderParam(name="Content-Type", value="application/json")
     public List<LocalChecksTest> testPersist() {
+
+        // add difference in logs before vs after
+
         ServerInputWrapper serverInputWrapper = ServerInputWrapper.createServerRequest(1);
         ServerOutputWrapper wrapper = logsService.getLogs(serverInputWrapper);
 
@@ -76,12 +79,9 @@ public class LogsResource {
 
         CollectorManager cm = new CollectorManager(collectors);
 
-
         List<String> lines = new ArrayList<>();
 
         lines.add(rowFromServer.createCSVLineFromRow());
-
-        System.out.printf("Log result from Andrew:\n");
         return AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm));
     }
 
