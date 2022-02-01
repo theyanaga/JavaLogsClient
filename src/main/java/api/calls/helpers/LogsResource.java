@@ -1,6 +1,7 @@
 package api.calls.helpers;
 
 import api.calls.entities.CSVIndexes;
+import api.calls.entities.ServerInput;
 import api.calls.entities.ServerInputWrapper;
 import api.calls.entities.ServerOutputWrapper;
 import gradingTools.logs.localChecksStatistics.collectors.Collector;
@@ -44,6 +45,30 @@ public class LogsResource {
         return serverOutputWrapper;
     }
 
+    @Path("/persist")
+    @Transactional
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @ClientHeaderParam(name="Connection", value="keep-alive")
+    @ClientHeaderParam(name="Content-Type", value="application/json")
+    public boolean persistRowsFromServer(long skip) {
+
+        ServerOutputWrapper wrapper = logsService.getLogs(ServerInputWrapper.createServerRequest( (int) skip));
+
+        String[] csvLine = wrapper.getLogs().get(0).getLog().getJson().split(",");
+
+        Users users = Users.of(wrapper.getLogs().get(0).getMachineId());
+
+        Course course = Course.of(Course.COMP_524, Season.FALL, 2021);
+
+        Assignment assignment = Assignment.of(2, course);
+
+        RowFromServer serverRow = RowFromServer.of(users, assignment, csvLine);
+        serverRow.persist();
+
+        return true;
+    }
+
     @GET
     @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
@@ -67,8 +92,6 @@ public class LogsResource {
 
         RowFromServer serverRow = RowFromServer.of(users, assignment, csvLine);
         serverRow.persist();
-
-        List<RowFromServer> list = RowFromServer.listAll();
 
         RowFromServer rowFromServer = RowFromServer.find("user_id", 1).firstResult();
 
