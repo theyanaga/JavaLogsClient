@@ -18,9 +18,6 @@ public class AndrewOutputProcessor {
 
         for (String string : strings) {
             String[] splitString = string.split(" ",2);
-            for (String aString : splitString) {
-                System.out.println(aString);
-            }
             String testName = splitString[0];
             String attributeAndValue = splitString[1];
             if (testMap.containsKey(testName)) {
@@ -33,7 +30,9 @@ public class AndrewOutputProcessor {
             }
         }
 
-        return new ArrayList<>(testMap.values());
+        // Sort the values before you return them to make sure that all of the values come in the same order.
+        return testMap.values().stream()
+                .sorted(Comparator.comparing(LocalChecksTest::getName)).collect(Collectors.toList());
     }
 
     private static void setAttributeToValue(String attributeAndValue, LocalChecksTest test) {
@@ -41,7 +40,6 @@ public class AndrewOutputProcessor {
         String attribute = splitAttributeAndValue[0];
         String value = splitAttributeAndValue[1];
         if (attribute.equalsIgnoreCase(ATTEMPTS)) {
-            System.out.println("This is the float value: " + Float.parseFloat(value));
             test.setAttempts(Float.parseFloat(value));
         }
         else if (attribute.equalsIgnoreCase(FINAL_STATUS)) {

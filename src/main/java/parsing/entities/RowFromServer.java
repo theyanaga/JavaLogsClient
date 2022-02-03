@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
 @Entity
 public class RowFromServer extends PanacheEntity {
 
-    private RowFromServer(Users users, Assignment assignment, String row, String time, String percentPassed, String change, String testName, String passedTests, String partialTests, String failedTests, String untestedTests, String sessionNumber, String sessionRunNumber, String isSuite, String suiteTests, String preRequisiteTests, String extraCreditTests, String testScores, String failFromPreReq) {
-        this.users = users;
+    private RowFromServer(User users, Assignment assignment, String row, String time, String percentPassed, String change, String testName, String passedTests, String partialTests, String failedTests, String untestedTests, String sessionNumber, String sessionRunNumber, String isSuite, String suiteTests, String preRequisiteTests, String extraCreditTests, String testScores, String failFromPreReq) {
+        this.user = users;
         this.assignment = assignment;
         this.row = row;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy");
@@ -35,7 +35,7 @@ public class RowFromServer extends PanacheEntity {
     }
 
     @Transactional
-    public static RowFromServer of(Users users, Assignment assignment, String[] csvLine) {
+    public static RowFromServer of(User users, Assignment assignment, String[] csvLine) {
         if (!users.isPersistent()) {
             users.persist();
         }
@@ -63,7 +63,7 @@ public class RowFromServer extends PanacheEntity {
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private Users users;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "assignment_id")

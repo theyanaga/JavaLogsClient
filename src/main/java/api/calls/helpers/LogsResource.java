@@ -1,7 +1,5 @@
 package api.calls.helpers;
 
-import api.calls.entities.CSVIndexes;
-import api.calls.entities.ServerInput;
 import api.calls.entities.ServerInputWrapper;
 import api.calls.entities.ServerOutputWrapper;
 import gradingTools.logs.localChecksStatistics.collectors.Collector;
@@ -20,8 +18,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/get-cyverse-log")
 public class LogsResource {
@@ -34,15 +32,33 @@ public class LogsResource {
     LogsService logsService;
 
     @POST
+    @Transactional
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @ClientHeaderParam(name="Connection", value="keep-alive")
     @ClientHeaderParam(name="Content-Type", value="application/json")
-    public ServerOutputWrapper getLogs(ServerInputWrapper serverRequestBodyWrapper) throws IOException {
+    public int persistLogs() throws IOException {
 
-        ServerOutputWrapper serverOutputWrapper = logsService.getLogs(serverRequestBodyWrapper);
+        long skip = RowFromServer.count();
 
-        return serverOutputWrapper;
+        for(int i = 0; i < 100; i++) {
+            ServerOutputWrapper wrapper = logsService.getLogs(ServerInputWrapper.createServerRequest(
+                    (int) (skip + i)
+            ));
+
+            String[] csvLine = wrapper.getLogs().get(0).getLog().getJson().split(",");
+
+            User users = User.of(wrapper.getLogs().get(0).getMachineId());
+
+            Course course = Course.of(Course.COMP_524, Season.FALL, 2021);
+
+            Assignment assignment = Assignment.of(2, course);
+
+            RowFromServer serverRow = RowFromServer.of(users, assignment, csvLine);
+            serverRow.persistAndFlush();
+        }
+
+        return 0;
     }
 
     @Path("/persist")
@@ -57,7 +73,7 @@ public class LogsResource {
 
         String[] csvLine = wrapper.getLogs().get(0).getLog().getJson().split(",");
 
-        Users users = Users.of(wrapper.getLogs().get(0).getMachineId());
+        User users = User.of(wrapper.getLogs().get(0).getMachineId());
 
         Course course = Course.of(Course.COMP_524, Season.FALL, 2021);
 
@@ -75,7 +91,7 @@ public class LogsResource {
     @Produces(MediaType.APPLICATION_JSON)
     @ClientHeaderParam(name="Connection", value="keep-alive")
     @ClientHeaderParam(name="Content-Type", value="application/json")
-    public List<LocalChecksTest> testPersist() {
+    public UserWithTests testPersist() {
 
         // add difference in logs before vs after
 
@@ -84,13 +100,13 @@ public class LogsResource {
 
         String[] csvLine = wrapper.getLogs().get(0).getLog().getJson().split(",");
 
-        Users users = Users.of(wrapper.getLogs().get(0).getMachineId());
+        User user = User.of(wrapper.getLogs().get(0).getMachineId());
 
         Course course = Course.of(Course.COMP_524, Season.FALL, 2021);
 
         Assignment assignment = Assignment.of(2, course);
 
-        RowFromServer serverRow = RowFromServer.of(users, assignment, csvLine);
+        RowFromServer serverRow = RowFromServer.of(user, assignment, csvLine);
         serverRow.persist();
 
         RowFromServer rowFromServer = RowFromServer.find("user_id", 1).firstResult();
@@ -105,7 +121,9 @@ public class LogsResource {
         List<String> lines = new ArrayList<>();
 
         lines.add(rowFromServer.createCSVLineFromRow());
-        return AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm));
+        return UserWithTests.of(User.findById(1), AndrewOutputProcessor.processInput(
+                LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm))
+        );
     }
 
 
