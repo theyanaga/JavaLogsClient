@@ -20,7 +20,7 @@ function createData(
 }
 
 interface User {
-    user_id: number;
+    id: number;
     machineId: string;
 }
 
@@ -49,7 +49,9 @@ const rows = [
 export default function TestTable(this: any) {
 //   const [testNames, setTestNames] = useState([]);
   const [usersWithTests, setUsersWithTests] = useState<UserWithTests[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [testNames, setTestNames] = useState([]);
+  const [areTestsLoading, setAreTestsLoading] = useState(true);
+  const [areTestNamesLoading, setAreTestNamesLoading] = useState(true);
 
   function getDataFromServer() {
      fetch("http://localhost:8080/potato", {
@@ -58,15 +60,29 @@ export default function TestTable(this: any) {
       .then((response) => response.json())
       .then((responseData) => {
         setUsersWithTests(responseData);
-        setIsLoading(false)
+        setAreTestsLoading(false)
       });
+  }
+  
+  function getTestNames() {
+     fetch("http://localhost:8080/potato/salad", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        setTestNames(responseData);
+        setAreTestNamesLoading(false);
+      });
+
   }
 
   React.useEffect(getDataFromServer, []) // Runs everytime a state changes
+  React.useEffect(getTestNames, []) // Runs everytime a state changes
+
 
   console.log(usersWithTests)
 
-  if (isLoading) {
+  if (areTestNamesLoading || areTestsLoading) {
       return <div className="App">Loading...</div>;
   }
   return (
@@ -75,31 +91,27 @@ export default function TestTable(this: any) {
         <TableHead>
                 <TableRow>
                     <TableCell> User </TableCell>
-                {usersWithTests.map((userWithTest) => ( // This will not work because we have already iterated through the first object
-                    userWithTest.tests.map((test) => (
-                        <TableCell scope="test">
-                            {test.name}
+                    {testNames.map((testName) => (
+                        <TableCell key={testName}>
+                            {testName}
                         </TableCell>
-                    ))
-                ))}
+                    ))}
                 </TableRow>
          </TableHead>
-        {/* <TableBody>
-          {rows.map((row) => (
+        <TableBody>
+          {usersWithTests.map((userWithTest) => (
             <TableRow
-              key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {userWithTest.user.id}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+              {userWithTest.tests.map((test) => (
+                <TableCell align="center">{test.status}</TableCell>
+              ))}
             </TableRow>
           ))}
-        </TableBody> */}
+        </TableBody>
       </Table>
     </TableContainer>
   );
