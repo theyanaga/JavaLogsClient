@@ -19,6 +19,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/potato")
 public class AResource {
@@ -48,6 +49,31 @@ public class AResource {
         users.add(UserWithTests.of(User.findById( (long) 1), AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm))));
 
         return users;
+    }
+
+    @Path("/salad")
+    @GET
+    @Transactional
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getTestNames() {
+        List<RowFromServer> rows = RowFromServer.find("user_id", 1).list();
+
+        Collector[] collectors = {
+                new AttemptsCollectorV2(),
+                new FinalStatusCollector(),
+        };
+
+        CollectorManager cm = new CollectorManager(collectors);
+
+        List<String> lines = new ArrayList<>();
+
+        for (RowFromServer row : rows)  {
+            lines.add(row.createCSVLineFromRow());
+        }
+
+        List<LocalChecksTest> tests = AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm));
+
+        return tests.stream().map(LocalChecksTest::getName).collect(Collectors.toList());
     }
 
 }
