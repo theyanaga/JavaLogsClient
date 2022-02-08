@@ -114,6 +114,10 @@ public class RowFromServer extends PanacheEntity {
 
     public RowFromServer() {}
 
+    public User getUser() {
+        return user;
+    }
+
     public String getRow() {
         return row;
     }

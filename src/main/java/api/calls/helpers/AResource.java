@@ -76,4 +76,35 @@ public class AResource {
         return tests.stream().map(LocalChecksTest::getName).collect(Collectors.toList());
     }
 
+    @Path("/allUsers")
+    @GET
+    @Transactional(Transactional.TxType.REQUIRES_NEW)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserWithTests> getAllUsersAndTheirTests() {
+        List<User> users = User.listAll();
+        List<UserWithTests> userWithTests = new ArrayList<>();
+
+        for (User user : users) {
+            List<RowFromServer> rowsForUser = RowFromServer.find("user_id", user.id).list();
+
+            if (rowsForUser.size() > 0) {
+                Collector[] collectors = {
+                        new AttemptsCollectorV2(),
+                        new FinalStatusCollector(),
+                };
+                CollectorManager cm = new CollectorManager(collectors);
+
+                List<String> lines = new ArrayList<>();
+
+                for (RowFromServer row : rowsForUser) {
+                    lines.add(row.createCSVLineFromRow());
+                }
+                userWithTests.add(UserWithTests.of(user , AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm))));
+            }
+
+        }
+
+        return userWithTests;
+    }
+
 }
