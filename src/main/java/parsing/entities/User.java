@@ -14,6 +14,10 @@ public class User extends PanacheEntity {
     @Column(name="machine_id")
     private String machineId;
 
+    public String firstName;
+
+    public String lastName;
+
     public User(String machineId) {
         this.machineId = machineId;
     }
@@ -32,6 +36,22 @@ public class User extends PanacheEntity {
 
     public void setMachineId(String machineId) {
         this.machineId = machineId;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override

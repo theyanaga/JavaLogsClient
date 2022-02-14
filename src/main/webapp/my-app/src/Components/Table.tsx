@@ -33,6 +33,8 @@ export interface Assignment {
 export interface User {
     id: number;
     machineId: string;
+    firstName: string;
+    lastName: string;
 }
 
 export interface UserWithTests{
@@ -76,7 +78,7 @@ export default function TestTable(this: any) {
   const [areTestNamesLoading, setAreTestNamesLoading] = useState(true);
 
   function getDataFromServer() {
-     fetch("http://localhost:8080/potato", {
+     fetch("http://localhost:8080/potato/allUsers", {
       method: "GET",
     })
       .then((response) => response.json())

@@ -1,6 +1,7 @@
 package api.calls.helpers;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Page;
 import parsing.entities.*;
 
 import javax.inject.Inject;
@@ -38,6 +39,20 @@ public class TestsResource {
             accumulatedResultsByTest.setNumberOfUsersThatPartiallyPassed((int) numberOfUsersThatPartiallyPassed);
             accumulatedResultsByTest.setNumberOfUsersThatFailed((int) numberOfUsersThatFailed);
             accumulatedResultsByTest.setNumberOfUsersThatDidNotRunTest((int) numberOfUsersThatDidNotRunTest);
+
+//            List<LocalTest> passedTests = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.PASS).page(Page.ofSize(3)).list();
+//            List<LocalTest> partiallyPassedTests = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.PARTIAL).page(Page.ofSize(3)).list();
+//            List<LocalTest> failedTests = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.FAIL).page(Page.ofSize(3)).list();
+//            List<LocalTest> untestedTests = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.UNTESTED).page(Page.ofSize(3)).list();
+//            List<User> passedUsers = passedTests.stream().map(LocalTest::getUser_id).collect(Collectors.toList());
+//            List<User> partialUsers = partiallyPassedTests.stream().map(LocalTest::getUser_id).collect(Collectors.toList());
+//            List<User> failedUsers = failedTests.stream().map(LocalTest::getUser_id).collect(Collectors.toList());
+//            List<User> untestedUsers = untestedTests.stream().map(LocalTest::getUser_id).collect(Collectors.toList());
+//
+//            accumulatedResultsByTest.setUsersThatPassed(passedUsers);
+//            accumulatedResultsByTest.setUsersThatPartiallyPassed(partialUsers);
+//            accumulatedResultsByTest.setUsersThatFailed(failedUsers);
+//            accumulatedResultsByTest.setUsersThatDidNotRunTest(untestedUsers);
 
             tests.add(accumulatedResultsByTest);
         }

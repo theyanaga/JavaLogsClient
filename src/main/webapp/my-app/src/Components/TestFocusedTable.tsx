@@ -63,7 +63,16 @@ export default function TestFocusedTable(this: any) {
               <TableCell component="th" scope="row" align="center">
                 {result.name}
               </TableCell>
-              <TableCell align="center">{result.numberOfUsersThatPassed}</TableCell>
+              <TableCell align="center"> {result.numberOfUsersThatPassed}</TableCell>
+             {/* {result.usersThatPartiallyPassed.map((user) => (
+              <TableCell align="center"> {user.firstName}({result.numberOfUsersThatPartiallyPassed})</TableCell>
+              ))}
+             {result.usersThatFailed.map((user) => (
+              <TableCell align="center"> {user.firstName}({result.numberOfUsersThatFailed})</TableCell>
+              ))}
+             {result.usersThatDidNoRunTest.map((user) => (
+              <TableCell align="center"> {user.firstName}({result.numberOfUsersThatDidNotRunTest})</TableCell>
+              ))} */}
               <TableCell align="center">{result.numberOfUsersThatPartiallyPassed}</TableCell>
               <TableCell align="center">{result.numberOfUsersThatFailed}</TableCell>
               <TableCell align="center">{result.numberOfUsersThatDidNotRunTest}</TableCell>

@@ -15,19 +15,35 @@ public class AccumulatedResultsByTest {
 
     private String name;
 
-    private final List<User> usersThatPassed = new ArrayList<>();
+    private List<User> usersThatPassed = new ArrayList<>();
 
     private int numberOfUsersThatPassed;
 
-    private final List<User> usersThatFailed = new ArrayList<>();
+    private List<User> usersThatFailed = new ArrayList<>();
 
     private int numberOfUsersThatFailed;
 
-    private final List<User> usersThatPartiallyPassed = new ArrayList<>();
+    private List<User> usersThatPartiallyPassed = new ArrayList<>();
 
     private int numberOfUsersThatPartiallyPassed;
 
-    private final List<User> usersThatDidNotRunTest = new ArrayList<>();
+    public void setUsersThatPassed(List<User> usersThatPassed) {
+        this.usersThatPassed = usersThatPassed;
+    }
+
+    public void setUsersThatFailed(List<User> usersThatFailed) {
+        this.usersThatFailed = usersThatFailed;
+    }
+
+    public void setUsersThatPartiallyPassed(List<User> usersThatPartiallyPassed) {
+        this.usersThatPartiallyPassed = usersThatPartiallyPassed;
+    }
+
+    public void setUsersThatDidNotRunTest(List<User> usersThatDidNotRunTest) {
+        this.usersThatDidNotRunTest = usersThatDidNotRunTest;
+    }
+
+    private List<User> usersThatDidNotRunTest = new ArrayList<>();
 
     private int numberOfUsersThatDidNotRunTest;
 

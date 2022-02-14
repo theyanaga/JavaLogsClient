@@ -2,6 +2,8 @@ package api.calls.helpers;
 
 import api.calls.entities.ServerInputWrapper;
 import api.calls.entities.ServerOutputWrapper;
+import com.github.javafaker.Faker;
+import com.github.javafaker.Name;
 import gradingTools.logs.localChecksStatistics.collectors.Collector;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.AttemptsCollectorV2;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.FinalStatusCollector;
@@ -77,32 +79,20 @@ public class Main {
 //
 //            List<User> users = User.listAll();
 //
-//            for (User user : users) {
-//                List<RowFromServer> rows = RowFromServer.find("user_id", user.id).list();
-//
-//                Collector[] collectors = {
-//                        new AttemptsCollectorV2(),
-//                        new FinalStatusCollector(),
-//                };
-//
-//                CollectorManager cm = new CollectorManager(collectors);
-//
-//                List<String> lines = new ArrayList<>();
-//
-//                for (RowFromServer row : rows)  {
-//                    lines.add(row.createCSVLineFromRow());
-//                }
-//
-//                if (!lines.isEmpty()) {
-//                    List<LocalTest> tests = AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm),
-//                            Assignment.findById((long) 3));
-//
-//                    for (LocalTest test : tests) {
-//                        test.setUser_id(user);
-//                        test.persist();
-//                    }
-//                }
-//            }
+            List<User> users = User.listAll();
+
+            for (User user : users) {
+                Faker faker = new Faker();
+                Name name = faker.name();
+
+                user.firstName = name.firstName();
+                user.lastName = name.lastName();
+
+
+                User.getEntityManager().merge(user);
+
+                user.persistAndFlush();
+            }
 
             Quarkus.waitForExit();
             return 0;
