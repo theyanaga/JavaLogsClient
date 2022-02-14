@@ -54,15 +54,6 @@ export interface LocalTest {
   status: string;
 }
 
-<<<<<<< Updated upstream
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-=======
 /*
 
 Use TestResult as rows. 
@@ -77,8 +68,6 @@ and then in parenthesis add the total number of users that passed/failed that te
 e.g 1, 53, 74 ... (15)
 
 */
->>>>>>> Stashed changes
-
 export default function TestTable(this: any) {
 //   const [testNames, setTestNames] = useState([]);
   const [usersWithTests, setUsersWithTests] = useState<UserWithTests[]>([]);

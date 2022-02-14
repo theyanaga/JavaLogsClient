@@ -182,6 +182,14 @@ public class RowFromServer extends PanacheEntity {
         return sessionRunNumber;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public Assignment getAssignment() {
+        return assignment;
+    }
+
     public String createCSVLineFromRow() {
         String[] line = new String[17];
 
