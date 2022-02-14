@@ -6,15 +6,12 @@ import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.Att
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.FinalStatusCollector;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.CollectorManager;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.LocalLogDataAnalyzer;
-<<<<<<< Updated upstream
 import parsing.entities.LocalChecksTest;
 import parsing.entities.RowFromServer;
 import parsing.entities.User;
 import parsing.entities.UserWithTests;
-=======
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import parsing.entities.*;
->>>>>>> Stashed changes
 import parsing.helpers.AndrewOutputProcessor;
 
 import javax.transaction.Transactional;
@@ -67,8 +64,6 @@ public class AResource {
         return testNames.stream().map(TestName::getName).collect(Collectors.toList());
     }
 
-<<<<<<< Updated upstream
-=======
     @Path("/allUsers")
     @GET
     @Transactional
@@ -90,6 +85,4 @@ public class AResource {
 
         return userWithTests;
     }
-
->>>>>>> Stashed changes
 }
