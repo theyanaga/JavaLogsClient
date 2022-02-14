@@ -6,6 +6,7 @@ import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.Att
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.FinalStatusCollector;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.CollectorManager;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.LocalLogDataAnalyzer;
+import io.quarkus.panache.common.Page;
 import parsing.entities.LocalChecksTest;
 import parsing.entities.RowFromServer;
 import parsing.entities.User;
@@ -69,17 +70,16 @@ public class AResource {
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
     public List<UserWithTests> getAllUsersAndTheirTests() {
-        List<User> users = User.listAll();
+        PanacheQuery<User> usersQuery = User.findAll();
+
+        List<User> users = usersQuery.page(Page.ofSize(20)).list();
 
         List<UserWithTests> userWithTests = new ArrayList<>();
 
-
-
         for (User user : users) {
-            PanacheQuery<LocalTest> tests = LocalTest.find("user_id", user);
-            tests.range(0, 40);
+            List<LocalTest> tests = LocalTest.find("user_id", user.id).list();
             userWithTests.add(UserWithTests.of(
-                    user, tests.list()
+                    user, tests
             ));
         }
 

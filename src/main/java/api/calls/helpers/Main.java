@@ -79,20 +79,31 @@ public class Main {
 //
 //            List<User> users = User.listAll();
 //
-            List<User> users = User.listAll();
+//            List<User> users = User.listAll();
+//
+//            for (User user : users) {
+//                Faker faker = new Faker();
+//                Name name = faker.name();
+//
+//                user.firstName = name.firstName();
+//                user.lastName = name.lastName();
+//
+//
+//                User.getEntityManager().merge(user);
+//
+//                user.persistAndFlush();
+//            }
+//            List<User> users = User.listAll();
+//
+//            List<UserWithTests> userWithTests = new ArrayList<>();
+//
+//            for (User user : users) {
+//                List<LocalTest> tests = LocalTest.find("user_id", user.id).list();
+//                userWithTests.add(UserWithTests.of(
+//                        user, tests
+//                ));
+//            }
 
-            for (User user : users) {
-                Faker faker = new Faker();
-                Name name = faker.name();
-
-                user.firstName = name.firstName();
-                user.lastName = name.lastName();
-
-
-                User.getEntityManager().merge(user);
-
-                user.persistAndFlush();
-            }
 
             Quarkus.waitForExit();
             return 0;

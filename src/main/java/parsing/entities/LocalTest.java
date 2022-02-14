@@ -9,8 +9,8 @@ import javax.persistence.*;
 public class LocalTest extends PanacheEntity {
 
     private LocalTest(User user, TestName testName, float pointsGained, float pointsTotal, float attempts) {
-        this.user_id = user;
-        this.name = testName;
+        this.userId= user.id;
+        this.testNameId = testName.id;
         this.pointsGained = pointsGained;
         this.pointsTotal = pointsTotal;
         this.attempts = attempts;
@@ -21,10 +21,11 @@ public class LocalTest extends PanacheEntity {
             TestName testName = new TestName();
             testName.setName(name);
             testName.persist();
-            this.name = testName;
+            this.testNameId = testName.id;
         }
         else {
-            this.name = TestName.find("name", name).firstResult();
+            TestName aName = TestName.find("name", name).firstResult();
+            this.testNameId = aName.id;
         }
     }
 
@@ -36,19 +37,14 @@ public class LocalTest extends PanacheEntity {
        return new LocalTest(name);
     }
 
+    @Column(name = "user_id")
+    public long userId;
 
+    @Column(name = "test_name_id")
+    public long testNameId;
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    public User user_id;
-
-    @ManyToOne
-    @JoinColumn(name="test_name_id")
-    public TestName name;
-
-    @ManyToOne
-    @JoinColumn(name="assignment_id")
-    public Assignment assignment;
+    @Column(name = "assignment_id")
+    public long assignmentId;
 
     @Enumerated(EnumType.STRING)
     public TestStatus status;
@@ -63,23 +59,11 @@ public class LocalTest extends PanacheEntity {
 
     }
 
-    public User getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(User user_id) {
-        this.user_id = user_id;
-    }
-
-    public String getName() {
-        return name.getName();
-    }
-
     public void setName(TestName name) {
         if (TestName.find("name", name.getName()) == null) {
             name.persist();
         }
-        this.name = name;
+        this.assignmentId = name.id;
     }
 
     public float getPointsGained() {
@@ -106,19 +90,44 @@ public class LocalTest extends PanacheEntity {
         this.attempts = attempts;
     }
 
-    public Assignment getAssignment() {
-        return assignment;
-    }
-
-    public void setAssignment(Assignment assignment) {
-        this.assignment = assignment;
-    }
-
     public TestStatus getStatus() {
         return status;
     }
 
     public void setStatus(String value) {
         this.status = TestStatus.fromString(value);
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public void setTestNameId(long testNameId) {
+        this.testNameId = testNameId;
+    }
+
+    public void setAssignmentId(long assignmentId) {
+        this.assignmentId = assignmentId;
+    }
+
+    public void setStatus(TestStatus status) {
+        this.status = status;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public long getTestNameId() {
+        return testNameId;
+    }
+
+    public String getName() {
+        TestName testName = TestName.findById(this.testNameId);
+        return testName.getName();
+    }
+
+    public long getAssignmentId() {
+        return assignmentId;
     }
 }

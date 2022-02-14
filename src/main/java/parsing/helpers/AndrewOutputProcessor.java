@@ -27,7 +27,7 @@ public class AndrewOutputProcessor {
             }
             else {
                 LocalTest aTest = LocalTest.ofName(testName);
-                aTest.setAssignment(assignment);
+                aTest.setAssignmentId(assignment.id);
                 testMap.put(testName, aTest);
                 setAttributeToValue(attributeAndValue, aTest);
             }
