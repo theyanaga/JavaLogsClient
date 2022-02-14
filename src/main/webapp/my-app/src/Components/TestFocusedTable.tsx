@@ -63,19 +63,30 @@ export default function TestFocusedTable(this: any) {
               <TableCell component="th" scope="row" align="center">
                 {result.name}
               </TableCell>
-              <TableCell align="center"> {result.numberOfUsersThatPassed}</TableCell>
-             {/* {result.usersThatPartiallyPassed.map((user) => (
-              <TableCell align="center"> {user.firstName}({result.numberOfUsersThatPartiallyPassed})</TableCell>
-              ))}
-             {result.usersThatFailed.map((user) => (
-              <TableCell align="center"> {user.firstName}({result.numberOfUsersThatFailed})</TableCell>
-              ))}
-             {result.usersThatDidNoRunTest.map((user) => (
-              <TableCell align="center"> {user.firstName}({result.numberOfUsersThatDidNotRunTest})</TableCell>
-              ))} */}
-              <TableCell align="center">{result.numberOfUsersThatPartiallyPassed}</TableCell>
-              <TableCell align="center">{result.numberOfUsersThatFailed}</TableCell>
-              <TableCell align="center">{result.numberOfUsersThatDidNotRunTest}</TableCell>
+              <TableCell align="center"> 
+                {result.usersThatPassed && result.usersThatPassed.length > 0 ? result.usersThatPassed[0].firstName + " " + result.usersThatPassed[0].lastName + ", " : ""}
+                {result.usersThatPassed && result.usersThatPassed.length > 1 ? result.usersThatPassed[1].firstName + " " + result.usersThatPassed[1].lastName + ", ": ""}
+                {result.usersThatPassed && result.usersThatPassed.length > 2 ? result.usersThatPassed[2].firstName + " " + result.usersThatPassed[2].lastName : ""}
+                ({result.numberOfUsersThatPassed})
+              </TableCell>
+              <TableCell align="center"> 
+                {result.usersThatPartiallyPassed && result.usersThatPartiallyPassed.length > 0 ? result.usersThatPartiallyPassed[0].firstName + " " + result.usersThatPartiallyPassed[0].lastName + ", " : ""}
+                {result.usersThatPartiallyPassed && result.usersThatPartiallyPassed.length > 1 ? result.usersThatPartiallyPassed[1].firstName + " " + result.usersThatPartiallyPassed[1].lastName + ", ": ""}
+                {result.usersThatPartiallyPassed && result.usersThatPartiallyPassed.length > 2 ? result.usersThatPartiallyPassed[2].firstName + " " + result.usersThatPartiallyPassed[2].lastName : ""}
+                ({result.numberOfUsersThatPartiallyPassed})
+              </TableCell>
+              <TableCell align="center"> 
+                {result.usersThatFailed && result.usersThatFailed.length > 0 ? result.usersThatFailed[0].firstName + " " + result.usersThatFailed[0].lastName + ", ": ""}
+                {result.usersThatFailed && result.usersThatFailed.length > 1 ? result.usersThatFailed[1].firstName + " " + result.usersThatFailed[1].lastName + ", ": ""}
+                {result.usersThatFailed && result.usersThatFailed.length > 2 ? result.usersThatFailed[2].firstName + " " + result.usersThatFailed[2].lastName : ""}
+                ({result.numberOfUsersThatFailed})
+              </TableCell>
+              <TableCell align="center"> 
+                {result.usersThatDidNoRunTest && result.usersThatDidNoRunTest.length > 0 ? result.usersThatDidNoRunTest[0].firstName + " " + result.usersThatDidNoRunTest[0].lastName + ", ": ""}
+                {result.usersThatDidNoRunTest && result.usersThatDidNoRunTest.length > 1 ? result.usersThatDidNoRunTest[1].firstName + " " + result.usersThatDidNoRunTest[1].lastName + ", ": ""}
+                {result.usersThatDidNoRunTest && result.usersThatDidNoRunTest.length > 2 ? result.usersThatDidNoRunTest[2].firstName + " " + result.usersThatDidNoRunTest[2].lastName : ""}
+                ({result.numberOfUsersThatDidNotRunTest})
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -30,29 +30,25 @@ public class TestsResource {
         for (TestName testName : names) {
             AccumulatedResultsByTest accumulatedResultsByTest = AccumulatedResultsByTest.of(testName.getName());
 
-            long numberOfUsersThatPassed = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.PASS).count();
-            long numberOfUsersThatPartiallyPassed = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.PARTIAL).count();
-            long numberOfUsersThatFailed = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.FAIL).count();
-            long numberOfUsersThatDidNotRunTest = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.UNTESTED).count();
+            PanacheQuery<LocalTest> passedTestQuery = LocalTest.find("test_name_id = ?1 and status = ?2", testName.id, TestStatus.PASS);
+            PanacheQuery<LocalTest> partiallyPassedTestQuery  = LocalTest.find("test_name_id = ?1 and status = ?2", testName.id, TestStatus.PARTIAL);
+            PanacheQuery<LocalTest> failedTestQuery  = LocalTest.find("test_name_id = ?1 and status = ?2", testName.id, TestStatus.FAIL);
+            PanacheQuery<LocalTest> untestedTestQuery  = LocalTest.find("test_name_id = ?1 and status = ?2", testName.id, TestStatus.UNTESTED);
 
-            accumulatedResultsByTest.setNumberOfUsersThatPassed( (int) numberOfUsersThatPassed);
-            accumulatedResultsByTest.setNumberOfUsersThatPartiallyPassed((int) numberOfUsersThatPartiallyPassed);
-            accumulatedResultsByTest.setNumberOfUsersThatFailed((int) numberOfUsersThatFailed);
-            accumulatedResultsByTest.setNumberOfUsersThatDidNotRunTest((int) numberOfUsersThatDidNotRunTest);
+            accumulatedResultsByTest.setNumberOfUsersThatPassed( (int) passedTestQuery.count());
+            accumulatedResultsByTest.setNumberOfUsersThatPartiallyPassed((int) partiallyPassedTestQuery.count());
+            accumulatedResultsByTest.setNumberOfUsersThatFailed((int) failedTestQuery.count());
+            accumulatedResultsByTest.setNumberOfUsersThatDidNotRunTest((int) untestedTestQuery.count());
 
-//            List<LocalTest> passedTests = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.PASS).page(Page.ofSize(3)).list();
-//            List<LocalTest> partiallyPassedTests = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.PARTIAL).page(Page.ofSize(3)).list();
-//            List<LocalTest> failedTests = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.FAIL).page(Page.ofSize(3)).list();
-//            List<LocalTest> untestedTests = LocalTest.find("name = ?1 and status = ?2", testName, TestStatus.UNTESTED).page(Page.ofSize(3)).list();
-//            List<User> passedUsers = passedTests.stream().map(LocalTest::getUser_id).collect(Collectors.toList());
-//            List<User> partialUsers = partiallyPassedTests.stream().map(LocalTest::getUser_id).collect(Collectors.toList());
-//            List<User> failedUsers = failedTests.stream().map(LocalTest::getUser_id).collect(Collectors.toList());
-//            List<User> untestedUsers = untestedTests.stream().map(LocalTest::getUser_id).collect(Collectors.toList());
-//
-//            accumulatedResultsByTest.setUsersThatPassed(passedUsers);
-//            accumulatedResultsByTest.setUsersThatPartiallyPassed(partialUsers);
-//            accumulatedResultsByTest.setUsersThatFailed(failedUsers);
-//            accumulatedResultsByTest.setUsersThatDidNotRunTest(untestedUsers);
+            List<Long> userPassedIds = passedTestQuery.page(Page.ofSize(3)).stream().map(LocalTest::getUserId).collect(Collectors.toList());
+            List<Long> userPartiallyPassedIds = partiallyPassedTestQuery.page(Page.ofSize(3)).stream().map(LocalTest::getUserId).collect(Collectors.toList());
+            List<Long> userFailedIds = failedTestQuery.page(Page.ofSize(3)).stream().map(LocalTest::getUserId).collect(Collectors.toList());
+            List<Long> userUntestedIds = untestedTestQuery.page(Page.ofSize(3)).stream().map(LocalTest::getUserId).collect(Collectors.toList());
+
+            accumulatedResultsByTest.setUsersThatPassed(User.findUsersFromId(userPassedIds));
+            accumulatedResultsByTest.setUsersThatPartiallyPassed(User.findUsersFromId(userPartiallyPassedIds));
+            accumulatedResultsByTest.setUsersThatFailed(User.findUsersFromId(userFailedIds));
+            accumulatedResultsByTest.setUsersThatDidNotRunTest(User.findUsersFromId(userUntestedIds));
 
             tests.add(accumulatedResultsByTest);
         }

@@ -5,6 +5,9 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -52,6 +55,17 @@ public class User extends PanacheEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Transactional
+    public static List<User> findUsersFromId(List<Long> ids) {
+        List<User> users = new ArrayList<>();
+
+        for (Long id : ids) {
+            users.add(User.findById(id));
+        }
+
+        return users;
     }
 
     @Override
