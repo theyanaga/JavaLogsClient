@@ -7,7 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useState } from "react";
-import { createObjectBindingPattern } from "typescript";
 
 function createData(
   name: string,
@@ -19,25 +18,43 @@ function createData(
   return { name, calories, fat, carbs, protein };
 }
 
-interface User {
+export interface Course {
+  id: number;
+  className: string;
+  year: number;
+}
+
+export interface Assignment {
+    id: number;
+    number: number;
+    course: Course;
+}
+
+export interface User {
     id: number;
     machineId: string;
 }
 
-interface UserWithTests{
+export interface UserWithTests{
     user: User;
-    tests: LocalCheckTest[]
+    tests: LocalTest[]
 }
 
-interface LocalCheckTest {
+export interface TestName {
+    id: number;
+    name: string;
+}
+
+export interface LocalTest {
+  assignment: Assignment;
   attempts: number;
-  hasPoints: boolean;
-  name: string;
+  name: TestName;
   points: number;
   totalPoints: number;
   status: string;
 }
 
+<<<<<<< Updated upstream
 const rows = [
   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
@@ -45,6 +62,22 @@ const rows = [
   createData("Cupcake", 305, 3.7, 67, 4.3),
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
+=======
+/*
+
+Use TestResult as rows. 
+
+Columns are: 
+
+      uid | passed | partial | failed | untested
+
+For each field other than uid, make the value the uid of the first three users, 
+and then in parenthesis add the total number of users that passed/failed that test. 
+
+e.g 1, 53, 74 ... (15)
+
+*/
+>>>>>>> Stashed changes
 
 export default function TestTable(this: any) {
 //   const [testNames, setTestNames] = useState([]);

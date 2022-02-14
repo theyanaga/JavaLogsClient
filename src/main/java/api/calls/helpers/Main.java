@@ -2,6 +2,11 @@ package api.calls.helpers;
 
 import api.calls.entities.ServerInputWrapper;
 import api.calls.entities.ServerOutputWrapper;
+import gradingTools.logs.localChecksStatistics.collectors.Collector;
+import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.AttemptsCollectorV2;
+import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.FinalStatusCollector;
+import gradingTools.logs.localChecksStatistics.compiledLogGenerator.CollectorManager;
+import gradingTools.logs.localChecksStatistics.compiledLogGenerator.LocalLogDataAnalyzer;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -11,12 +16,15 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.hibernate.engine.spi.Managed;
 import org.jboss.logging.Logger;
 import parsing.entities.*;
+import parsing.helpers.AndrewOutputProcessor;
 
 import javax.enterprise.inject.New;
 import javax.inject.Inject;
 import javax.transaction.TransactionScoped;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @QuarkusMain
 public class Main {
@@ -65,6 +73,35 @@ public class Main {
 //
 //                RowFromServer serverRow = RowFromServer.of(user, assignment, csvLine);
 //                serverRow.persistAndFlush();
+//            }
+//
+//            List<User> users = User.listAll();
+//
+//            for (User user : users) {
+//                List<RowFromServer> rows = RowFromServer.find("user_id", user.id).list();
+//
+//                Collector[] collectors = {
+//                        new AttemptsCollectorV2(),
+//                        new FinalStatusCollector(),
+//                };
+//
+//                CollectorManager cm = new CollectorManager(collectors);
+//
+//                List<String> lines = new ArrayList<>();
+//
+//                for (RowFromServer row : rows)  {
+//                    lines.add(row.createCSVLineFromRow());
+//                }
+//
+//                if (!lines.isEmpty()) {
+//                    List<LocalTest> tests = AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm),
+//                            Assignment.findById((long) 3));
+//
+//                    for (LocalTest test : tests) {
+//                        test.setUser_id(user);
+//                        test.persist();
+//                    }
+//                }
 //            }
 
             Quarkus.waitForExit();

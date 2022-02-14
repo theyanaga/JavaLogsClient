@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Cacheable
 public class Assignment extends PanacheEntity {
 
     private int number;

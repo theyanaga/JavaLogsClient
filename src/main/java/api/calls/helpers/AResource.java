@@ -6,10 +6,15 @@ import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.Att
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.FinalStatusCollector;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.CollectorManager;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.LocalLogDataAnalyzer;
+<<<<<<< Updated upstream
 import parsing.entities.LocalChecksTest;
 import parsing.entities.RowFromServer;
 import parsing.entities.User;
 import parsing.entities.UserWithTests;
+=======
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import parsing.entities.*;
+>>>>>>> Stashed changes
 import parsing.helpers.AndrewOutputProcessor;
 
 import javax.transaction.Transactional;
@@ -46,7 +51,8 @@ public class AResource {
         List<UserWithTests> users = new ArrayList<>();
 
 
-        users.add(UserWithTests.of(User.findById( (long) 1), AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm))));
+        users.add(UserWithTests.of(User.findById( (long) 1), AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm),
+                Assignment.findById( (long) 3))));
 
         return users;
     }
@@ -56,24 +62,34 @@ public class AResource {
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> getTestNames() {
-        List<RowFromServer> rows = RowFromServer.find("user_id", 1).list();
+        List<TestName> testNames = TestName.listAll();
 
-        Collector[] collectors = {
-                new AttemptsCollectorV2(),
-                new FinalStatusCollector(),
-        };
-
-        CollectorManager cm = new CollectorManager(collectors);
-
-        List<String> lines = new ArrayList<>();
-
-        for (RowFromServer row : rows)  {
-            lines.add(row.createCSVLineFromRow());
-        }
-
-        List<LocalChecksTest> tests = AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm));
-
-        return tests.stream().map(LocalChecksTest::getName).collect(Collectors.toList());
+        return testNames.stream().map(TestName::getName).collect(Collectors.toList());
     }
 
+<<<<<<< Updated upstream
+=======
+    @Path("/allUsers")
+    @GET
+    @Transactional
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserWithTests> getAllUsersAndTheirTests() {
+        List<User> users = User.listAll();
+
+        List<UserWithTests> userWithTests = new ArrayList<>();
+
+
+
+        for (User user : users) {
+            PanacheQuery<LocalTest> tests = LocalTest.find("user_id", user);
+            tests.range(0, 40);
+            userWithTests.add(UserWithTests.of(
+                    user, tests.list()
+            ));
+        }
+
+        return userWithTests;
+    }
+
+>>>>>>> Stashed changes
 }

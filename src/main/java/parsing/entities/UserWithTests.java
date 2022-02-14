@@ -6,7 +6,7 @@ public class UserWithTests {
 
     private User user;
 
-    private List<LocalChecksTest> tests;
+    private List<LocalTest> tests;
 
     public User getUser() {
         return user;
@@ -16,20 +16,20 @@ public class UserWithTests {
         this.user = user;
     }
 
-    public List<LocalChecksTest> getTests() {
+    public List<LocalTest> getTests() {
         return tests;
     }
 
-    public void setTests(List<LocalChecksTest> tests) {
+    public void setTests(List<LocalTest> tests) {
         this.tests = tests;
     }
 
-    private UserWithTests(User user, List<LocalChecksTest> testList) {
+    private UserWithTests(User user, List<LocalTest> testList) {
         this.tests = testList;
         this.user = user;
     }
 
-    public static UserWithTests of(User user, List<LocalChecksTest> tests) {
+    public static UserWithTests of(User user, List<LocalTest> tests) {
         return new UserWithTests(user, tests);
     }
 }

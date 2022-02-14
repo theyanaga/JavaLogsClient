@@ -122,7 +122,8 @@ public class LogsResource {
 
         lines.add(rowFromServer.createCSVLineFromRow());
         return UserWithTests.of(User.findById(1), AndrewOutputProcessor.processInput(
-                LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm))
+                LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm),
+                Assignment.findById(3))
         );
     }
 

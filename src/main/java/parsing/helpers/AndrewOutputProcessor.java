@@ -1,7 +1,9 @@
 package parsing.helpers;
 
 import net.bytebuddy.description.method.ParameterList;
+import parsing.entities.Assignment;
 import parsing.entities.LocalChecksTest;
+import parsing.entities.LocalTest;
 import parsing.entities.RowFromServer;
 
 import java.util.*;
@@ -12,9 +14,9 @@ public class AndrewOutputProcessor {
     private static final String ATTEMPTS = "attempts";
     private static final String FINAL_STATUS = "finished as";
 
-    public static List<LocalChecksTest> processInput(List<String> strings) {
+    public static List<LocalTest> processInput(List<String> strings, Assignment assignment) {
 
-        Map<String, LocalChecksTest> testMap = new HashMap<>();
+        Map<String, LocalTest> testMap = new HashMap<>();
 
         for (String string : strings) {
             String[] splitString = string.split(" ",2);
@@ -24,7 +26,8 @@ public class AndrewOutputProcessor {
                 setAttributeToValue(attributeAndValue, testMap.get(testName));
             }
             else {
-                LocalChecksTest aTest = LocalChecksTest.ofName(testName);
+                LocalTest aTest = LocalTest.ofName(testName);
+                aTest.setAssignment(assignment);
                 testMap.put(testName, aTest);
                 setAttributeToValue(attributeAndValue, aTest);
             }
@@ -32,10 +35,10 @@ public class AndrewOutputProcessor {
 
         // Sort the values before you return them to make sure that all of the values come in the same order.
         return testMap.values().stream()
-                .sorted(Comparator.comparing(LocalChecksTest::getName)).collect(Collectors.toList());
+                .sorted(Comparator.comparing(LocalTest::getName)).collect(Collectors.toList());
     }
 
-    private static void setAttributeToValue(String attributeAndValue, LocalChecksTest test) {
+    private static void setAttributeToValue(String attributeAndValue, LocalTest test) {
         String[] splitAttributeAndValue = attributeAndValue.split(":");
         String attribute = splitAttributeAndValue[0];
         String value = splitAttributeAndValue[1];

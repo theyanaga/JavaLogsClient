@@ -2,7 +2,9 @@ package parsing.entities;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gradingTools.logs.LocalChecksLogData;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
+import javax.persistence.Entity;
 import java.util.Objects;
 
 public class LocalChecksTest {
@@ -17,6 +19,10 @@ public class LocalChecksTest {
         this.points = points;
         this.totalPoints = totalPoints;
         this.hasPoints = true;
+    }
+
+    public LocalChecksTest() {
+
     }
 
     public static LocalChecksTest ofName(String name) {
