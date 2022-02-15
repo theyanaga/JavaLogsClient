@@ -3,6 +3,7 @@ import {Route, BrowserRouter, Routes} from 'react-router-dom'
 import Table from './Components/Table';
 import TestFocusedTable from './Components/TestFocusedTable';
 import Home from './Components/Pages/Home';
+import Example from './Components/TestGraph';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/" element={<Home />}>
         <Route path="table" element={<Table/>}/>
         <Route path="testFocusedTable" element={<TestFocusedTable/>}/>
+        <Route path="graph" element={<Example/>}/>
       </Route> 
     </Routes>
    </BrowserRouter> 

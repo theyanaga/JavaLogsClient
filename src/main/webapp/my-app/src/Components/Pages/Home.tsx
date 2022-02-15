@@ -8,6 +8,7 @@ export default function Home() {
             <Link to="/"> Home </Link>
             <Link to="/table">Table</Link>
             <Link to="/testFocusedTable"> Test Focused Table </Link>
+            <Link to="/graph">Graph</Link>
             <Outlet/>
         </div>
     );
