@@ -1,6 +1,7 @@
 package parsing.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import parsing.entities.projections.UserId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -58,11 +59,11 @@ public class User extends PanacheEntity {
     }
 
     @Transactional
-    public static List<User> findUsersFromId(List<Long> ids) {
+    public static List<User> findUsersFromId(List<UserId> ids) {
         List<User> users = new ArrayList<>();
 
-        for (Long id : ids) {
-            users.add(User.findById(id));
+        for (UserId id : ids) {
+            users.add(User.findById(id.getUserId()));
         }
 
         return users;

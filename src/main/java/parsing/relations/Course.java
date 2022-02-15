@@ -1,6 +1,7 @@
-package parsing.entities;
+package parsing.relations;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import parsing.entities.Season;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

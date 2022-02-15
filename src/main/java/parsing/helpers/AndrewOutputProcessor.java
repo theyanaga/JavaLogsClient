@@ -1,10 +1,7 @@
 package parsing.helpers;
 
-import net.bytebuddy.description.method.ParameterList;
-import parsing.entities.Assignment;
-import parsing.entities.LocalChecksTest;
+import parsing.relations.Assignment;
 import parsing.entities.LocalTest;
-import parsing.entities.RowFromServer;
 
 import java.util.*;
 import java.util.stream.Collectors;

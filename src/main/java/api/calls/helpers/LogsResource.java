@@ -11,6 +11,8 @@ import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import parsing.entities.*;
 import parsing.helpers.AndrewOutputProcessor;
+import parsing.relations.Assignment;
+import parsing.relations.Course;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -19,7 +21,6 @@ import javax.ws.rs.core.MediaType;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("/get-cyverse-log")
 public class LogsResource {
@@ -95,36 +96,37 @@ public class LogsResource {
 
         // add difference in logs before vs after
 
-        ServerInputWrapper serverInputWrapper = ServerInputWrapper.createServerRequest(1);
-        ServerOutputWrapper wrapper = logsService.getLogs(serverInputWrapper);
-
-        String[] csvLine = wrapper.getLogs().get(0).getLog().getJson().split(",");
-
-        User user = User.of(wrapper.getLogs().get(0).getMachineId());
-
-        Course course = Course.of(Course.COMP_524, Season.FALL, 2021);
-
-        Assignment assignment = Assignment.of(2, course);
-
-        RowFromServer serverRow = RowFromServer.of(user, assignment, csvLine);
-        serverRow.persist();
-
-        RowFromServer rowFromServer = RowFromServer.find("user_id", 1).firstResult();
-
-        Collector[] collectors = {
-                new AttemptsCollectorV2(),
-                new FinalStatusCollector(),
-        };
-
-        CollectorManager cm = new CollectorManager(collectors);
-
-        List<String> lines = new ArrayList<>();
-
-        lines.add(rowFromServer.createCSVLineFromRow());
-        return UserWithTests.of(User.findById(1), AndrewOutputProcessor.processInput(
-                LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm),
-                Assignment.findById(3))
-        );
+//        ServerInputWrapper serverInputWrapper = ServerInputWrapper.createServerRequest(1);
+//        ServerOutputWrapper wrapper = logsService.getLogs(serverInputWrapper);
+//
+//        String[] csvLine = wrapper.getLogs().get(0).getLog().getJson().split(",");
+//
+//        User user = User.of(wrapper.getLogs().get(0).getMachineId());
+//
+//        Course course = Course.of(Course.COMP_524, Season.FALL, 2021);
+//
+//        Assignment assignment = Assignment.of(2, course);
+//
+//        RowFromServer serverRow = RowFromServer.of(user, assignment, csvLine);
+//        serverRow.persist();
+//
+//        RowFromServer rowFromServer = RowFromServer.find("user_id", 1).firstResult();
+//
+//        Collector[] collectors = {
+//                new AttemptsCollectorV2(),
+//                new FinalStatusCollector(),
+//        };
+//
+//        CollectorManager cm = new CollectorManager(collectors);
+//
+//        List<String> lines = new ArrayList<>();
+//
+//        lines.add(rowFromServer.createCSVLineFromRow());
+//        return UserWithTests.of(User.findById(1), AndrewOutputProcessor.processInput(
+//                LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm),
+//                Assignment.findById(3))
+//        );
+        return null;
     }
 
 

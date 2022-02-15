@@ -1,9 +1,5 @@
 package api.calls.helpers;
 
-import api.calls.entities.ServerInputWrapper;
-import api.calls.entities.ServerOutputWrapper;
-import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
 import gradingTools.logs.localChecksStatistics.collectors.Collector;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.AttemptsCollectorV2;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.FinalStatusCollector;
@@ -15,14 +11,12 @@ import io.quarkus.runtime.annotations.QuarkusMain;
 import org.eclipse.microprofile.context.ManagedExecutor;
 import org.eclipse.microprofile.context.ThreadContext;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.hibernate.engine.spi.Managed;
 import org.jboss.logging.Logger;
 import parsing.entities.*;
 import parsing.helpers.AndrewOutputProcessor;
+import parsing.relations.*;
 
-import javax.enterprise.inject.New;
 import javax.inject.Inject;
-import javax.transaction.TransactionScoped;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,50 +52,40 @@ public class Main {
         @Transactional(Transactional.TxType.REQUIRED)
         public int run(String[] args) throws Exception {
 
-//            long skip = RowFromServer.count();
+////            List<User> users = User.listAll();
+////
+////            for (User user : users) {
+////                List<RowFromServer> rowsForUser = RowFromServer.find("user_id", user.id).list();
+////
+////                Collector[] collectors = {
+////                        new AttemptsCollectorV2(),
+////                        new FinalStatusCollector(),
+////                };
+////
+////                CollectorManager cm = new CollectorManager(collectors);
+////
+////                List<String> lines = new ArrayList<>();
+////
+////                for (RowFromServer row : rowsForUser)  {
+////                    lines.add(row.createCSVLineFromRow());
+////                }
+////
+////                List<LocalTest> tests = AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm),
+////                        Assignment.findById((long)3));
+////
+////                for (LocalTest test : tests) {
+////                    IndividualTest individualTest = new IndividualTest();
+////                    individualTest.persist();
+////
+////                    TestNameRelation testNameRelation = TestNameRelation.of(individualTest.id, test.getTestNameId());
+////                    Attempt attempt = Attempt.of(test.getAttempts());
+////                    TestAttemptsRelation testAttemptsRelation = TestAttemptsRelation.of(individualTest.id, attempt.id);
+////                    TestAssignmentRelation testAssignmentRelation = TestAssignmentRelation.of(individualTest.id, (long) 3);
+////                    TestStatusRelation testStatusRelation = TestStatusRelation.of(individualTest.id, test.getStatus());
+////                    TestUserRelation testUserRelation = TestUserRelation.of(individualTest.id, user.id);
+////
+////                }
 //
-//            for(int i = 0; i < 100; i++) {
-//                ServerOutputWrapper wrapper = logsService.getLogs(ServerInputWrapper.createServerRequest(
-//                        (int) (skip + i)
-//                ));
-//
-//                String[] csvLine = wrapper.getLogs().get(0).getLog().getJson().split(",");
-//
-//                User user = User.of(wrapper.getLogs().get(0).getMachineId());
-//
-//                Course course = Course.of(Course.COMP_524, Season.FALL, 2021);
-//
-//                Assignment assignment = Assignment.of(2, course);
-//
-//                RowFromServer serverRow = RowFromServer.of(user, assignment, csvLine);
-//                serverRow.persistAndFlush();
-//            }
-//
-//            List<User> users = User.listAll();
-//
-//            List<User> users = User.listAll();
-//
-//            for (User user : users) {
-//                Faker faker = new Faker();
-//                Name name = faker.name();
-//
-//                user.firstName = name.firstName();
-//                user.lastName = name.lastName();
-//
-//
-//                User.getEntityManager().merge(user);
-//
-//                user.persistAndFlush();
-//            }
-//            List<User> users = User.listAll();
-//
-//            List<UserWithTests> userWithTests = new ArrayList<>();
-//
-//            for (User user : users) {
-//                List<LocalTest> tests = LocalTest.find("user_id", user.id).list();
-//                userWithTests.add(UserWithTests.of(
-//                        user, tests
-//                ));
 //            }
 
 

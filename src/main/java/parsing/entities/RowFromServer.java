@@ -2,6 +2,7 @@ package parsing.entities;
 
 import api.calls.entities.CSVIndexes;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import parsing.relations.Assignment;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;

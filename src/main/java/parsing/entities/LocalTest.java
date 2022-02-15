@@ -1,6 +1,7 @@
 package parsing.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import parsing.relations.TestName;
 
 import javax.persistence.*;
 
@@ -8,11 +9,9 @@ import javax.persistence.*;
 @Cacheable
 public class LocalTest extends PanacheEntity {
 
-    private LocalTest(User user, TestName testName, float pointsGained, float pointsTotal, float attempts) {
+    private LocalTest(User user, TestName testName, float attempts) {
         this.userId= user.id;
         this.testNameId = testName.id;
-        this.pointsGained = pointsGained;
-        this.pointsTotal = pointsTotal;
         this.attempts = attempts;
     }
 
@@ -29,8 +28,8 @@ public class LocalTest extends PanacheEntity {
         }
     }
 
-    public static LocalTest localTestOf(User user, TestName testName, float pointsGained, float pointsTotal, float attempts) {
-        return new LocalTest(user, testName, pointsGained, pointsTotal, attempts);
+    public static LocalTest localTestOf(User user, TestName testName, float attempts) {
+        return new LocalTest(user, testName, attempts);
     }
 
     public static LocalTest ofName(String name) {
@@ -49,10 +48,6 @@ public class LocalTest extends PanacheEntity {
     @Enumerated(EnumType.STRING)
     public TestStatus status;
 
-    private float pointsGained;
-
-    private float pointsTotal;
-
     private float attempts;
 
     public LocalTest() {
@@ -64,22 +59,6 @@ public class LocalTest extends PanacheEntity {
             name.persist();
         }
         this.assignmentId = name.id;
-    }
-
-    public float getPointsGained() {
-        return pointsGained;
-    }
-
-    public void setPointsGained(float pointsGained) {
-        this.pointsGained = pointsGained;
-    }
-
-    public float getPointsTotal() {
-        return pointsTotal;
-    }
-
-    public void setPointsTotal(float pointsTotal) {
-        this.pointsTotal = pointsTotal;
     }
 
     public float getAttempts() {
