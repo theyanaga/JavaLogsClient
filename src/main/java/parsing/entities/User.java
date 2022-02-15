@@ -1,6 +1,7 @@
 package parsing.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import parsing.entities.projections.LocalTestNameAndStatusWithUserId;
 import parsing.entities.projections.UserId;
 
 import javax.persistence.Column;
@@ -10,10 +11,14 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Entity
 @Table(name="users")
 public class User extends PanacheEntity {
+
+    private static final int USERS_TO_DISPLAY = 3;
 
     @Column(name="machine_id")
     private String machineId;
@@ -67,6 +72,20 @@ public class User extends PanacheEntity {
         }
 
         return users;
+    }
+
+    @Transactional
+    public static List<User> findUsersfromList(List<LocalTestNameAndStatusWithUserId> tests) {
+        int counter = 3;
+        if (tests.isEmpty()) {
+            return new ArrayList<>();
+        }
+        else {
+            if (tests.size() < counter) {
+                counter = tests.size();
+            }
+        }
+        return IntStream.range(0, counter).<User>mapToObj(i -> User.findById(tests.get(i).getUserId())).collect(Collectors.toList());
     }
 
     @Override
