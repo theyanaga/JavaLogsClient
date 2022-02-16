@@ -1,6 +1,8 @@
 package api.calls.helpers;
 
 import graph.entities.UserBarGraphEntity;
+import org.eclipse.microprofile.metrics.MetricUnits;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import parsing.entities.AccumulatedResultsByTest;
 import parsing.entities.LocalTest;
 import parsing.entities.TestStatus;
@@ -9,6 +11,8 @@ import parsing.entities.projections.LocalTestNameAndStatus;
 import parsing.entities.projections.LocalTestNameAndStatusWithUserId;
 import parsing.relations.TestName;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -21,10 +25,15 @@ import java.util.stream.Collectors;
 @Path("/graphs")
 public class GraphsResource {
 
+    @Inject
+    EntityManager em;
+
     @Path("/testsPassedBarGraph")
     @GET
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
+    @Timed(name = "checkOldGraphQuery", description = "A measure of how long it takes to perform the older request.", unit = MetricUnits.MILLISECONDS)
+
     public List<UserBarGraphEntity> getUserBarChartGraph() {
         List<TestName> names = TestName.listAll();
 
@@ -50,5 +59,4 @@ public class GraphsResource {
 
         return tests;
     }
-
 }

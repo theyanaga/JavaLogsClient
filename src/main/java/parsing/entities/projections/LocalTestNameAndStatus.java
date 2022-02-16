@@ -3,6 +3,10 @@ package parsing.entities.projections;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import parsing.entities.TestStatus;
 
+import javax.persistence.Entity;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.SqlResultSetMapping;
+
 @RegisterForReflection
 public class LocalTestNameAndStatus {
     private final long testNameId;
