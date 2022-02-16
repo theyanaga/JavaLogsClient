@@ -17,6 +17,8 @@ import parsing.helpers.AndrewOutputProcessor;
 import parsing.relations.*;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +48,9 @@ public class Main {
         @RestClient
         LogsService logsService;
 
+        @Inject
+        EntityManager em;
+
         private static final Logger LOG = Logger.getLogger(Main.class);
 
         @Override
@@ -70,23 +75,11 @@ public class Main {
 ////                    lines.add(row.createCSVLineFromRow());
 ////                }
 ////
-////                List<LocalTest> tests = AndrewOutputProcessor.processInput(LocalLogDataAnalyzer.runEvaluationFromDatabase(lines, cm),
-////                        Assignment.findById((long)3));
-////
-////                for (LocalTest test : tests) {
-////                    IndividualTest individualTest = new IndividualTest();
-////                    individualTest.persist();
-////
-////                    TestNameRelation testNameRelation = TestNameRelation.of(individualTest.id, test.getTestNameId());
-////                    Attempt attempt = Attempt.of(test.getAttempts());
-////                    TestAttemptsRelation testAttemptsRelation = TestAttemptsRelation.of(individualTest.id, attempt.id);
-////                    TestAssignmentRelation testAssignmentRelation = TestAssignmentRelation.of(individualTest.id, (long) 3);
-////                    TestStatusRelation testStatusRelation = TestStatusRelation.of(individualTest.id, test.getStatus());
-////                    TestUserRelation testUserRelation = TestUserRelation.of(individualTest.id, user.id);
-////
-////                }
-//
-//            }
+//            Query userQuery = em.createQuery("select u from TestNameRelation tn inner join TestStatusRelation ts on tn.testId = ts.testId " +
+//                    "inner join TestUserRelation tu on ts.testId = tu.testId inner join User u on tu.userId = u.id where tn.testNameId=:testNameId and ts.status=:status")
+//                    .setParameter("testNameId", (long)3901).setParameter("status", TestStatus.PASS)
+//                    .setMaxResults(3);
+//            System.out.println(userQuery.getResultList());
 
 
             Quarkus.waitForExit();

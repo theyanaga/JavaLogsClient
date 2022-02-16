@@ -99,7 +99,7 @@ export default function Example() {
                 <Bar name="# Passed" dataKey="countOfPassed" stackId="a" fill="#82ca9d"/>
                 <Bar name="# Partial" dataKey="countOfPartiallyPassed" stackId="a" fill="#F5D874" />
                 <Bar name="# Failed" dataKey="countOfFailed" stackId="a" fill="#F3937A" />
-                <Bar name="# Untested" dataKey="countOfUntested" stackId="a" fill="grey" />
+                <Bar name="# Untested" dataKey="countOfUntested" stackId="a" fill="grey"/>
                 </BarChart>
             </div>
     );

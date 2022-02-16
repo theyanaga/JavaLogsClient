@@ -17,15 +17,15 @@ public class AccumulatedResultsByTest {
 
     private List<User> usersThatPassed = new ArrayList<>();
 
-    private int numberOfUsersThatPassed;
+    private long numberOfUsersThatPassed;
 
     private List<User> usersThatFailed = new ArrayList<>();
 
-    private int numberOfUsersThatFailed;
+    private long numberOfUsersThatFailed;
 
     private List<User> usersThatPartiallyPassed = new ArrayList<>();
 
-    private int numberOfUsersThatPartiallyPassed;
+    private long numberOfUsersThatPartiallyPassed;
 
     public void setUsersThatPassed(List<User> usersThatPassed) {
         this.usersThatPassed = usersThatPassed;
@@ -45,7 +45,7 @@ public class AccumulatedResultsByTest {
 
     private List<User> usersThatDidNotRunTest = new ArrayList<>();
 
-    private int numberOfUsersThatDidNotRunTest;
+    private long numberOfUsersThatDidNotRunTest;
 
     public void insertUserTestResult(LocalTest test, User user) {
         switch (test.getStatus()) {
@@ -64,19 +64,19 @@ public class AccumulatedResultsByTest {
         }
     }
 
-    public int getNumberOfUsersThatPassed() {
+    public long getNumberOfUsersThatPassed() {
         return numberOfUsersThatPassed;
     }
 
-    public int getNumberOfUsersThatFailed() {
+    public long getNumberOfUsersThatFailed() {
         return numberOfUsersThatFailed;
     }
 
-    public int getNumberOfUsersThatPartiallyPassed() {
+    public long getNumberOfUsersThatPartiallyPassed() {
         return numberOfUsersThatPartiallyPassed;
     }
 
-    public int getNumberOfUsersThatDidNotRunTest() {
+    public long getNumberOfUsersThatDidNotRunTest() {
         return numberOfUsersThatDidNotRunTest;
     }
 
@@ -104,19 +104,19 @@ public class AccumulatedResultsByTest {
         this.name = name;
     }
 
-    public void setNumberOfUsersThatPassed(int numberOfUsersThatPassed) {
+    public void setNumberOfUsersThatPassed(long numberOfUsersThatPassed) {
         this.numberOfUsersThatPassed = numberOfUsersThatPassed;
     }
 
-    public void setNumberOfUsersThatFailed(int numberOfUsersThatFailed) {
+    public void setNumberOfUsersThatFailed(long numberOfUsersThatFailed) {
         this.numberOfUsersThatFailed = numberOfUsersThatFailed;
     }
 
-    public void setNumberOfUsersThatPartiallyPassed(int numberOfUsersThatPartiallyPassed) {
+    public void setNumberOfUsersThatPartiallyPassed(long numberOfUsersThatPartiallyPassed) {
         this.numberOfUsersThatPartiallyPassed = numberOfUsersThatPartiallyPassed;
     }
 
-    public void setNumberOfUsersThatDidNotRunTest(int numberOfUsersThatDidNotRunTest) {
+    public void setNumberOfUsersThatDidNotRunTest(long numberOfUsersThatDidNotRunTest) {
         this.numberOfUsersThatDidNotRunTest = numberOfUsersThatDidNotRunTest;
     }
 }

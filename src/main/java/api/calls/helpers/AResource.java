@@ -71,8 +71,8 @@ public class AResource {
             List<LocalTestNameAndStatus> tests = LocalTest.find("user_id", user.id).project(LocalTestNameAndStatus.class).list();
             List<Holder> elements = new ArrayList<>();
             for (LocalTestNameAndStatus a : tests) {
-                TestName testName = TestName.findById(a.testNameId);
-                Holder holder = new Holder(testName.getName(), a.status.toString());
+                TestName testName = TestName.findById(a.getTestNameId());
+                Holder holder = new Holder(testName.getName(), a.getStatus().toString());
                 elements.add(holder);
             }
 
