@@ -37,6 +37,10 @@ public class LocalChecksTest {
         return input.contains(this.name);
     }
 
+    private float score;
+
+    private float maxScore;
+
     private float attempts;
 
     private boolean hasPoints;
@@ -91,6 +95,22 @@ public class LocalChecksTest {
 
     public void setTotalPoints(float totalPoints) {
         this.totalPoints = totalPoints;
+    }
+
+    public float getScore() {
+        return score;
+    }
+
+    public void setScore(float score) {
+        this.score = score;
+    }
+
+    public float getMaxScore() {
+        return maxScore;
+    }
+
+    public void setMaxScore(float maxScore) {
+        this.maxScore = maxScore;
     }
 
     @Override

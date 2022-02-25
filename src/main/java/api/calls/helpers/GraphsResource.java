@@ -59,6 +59,8 @@ public class GraphsResource {
             tests.add(UserBarGraphEntity.of(name.getName(), countOfPassed, countOfPartiallyPassed, countOfFailed, countOfUntested));
         }
 
+        tests.sort(Comparator.comparing(UserBarGraphEntity::getTestName));
+
         return tests;
     }
 

@@ -57,24 +57,24 @@ public class Main {
         @Transactional(Transactional.TxType.REQUIRED)
         public int run(String[] args) throws Exception {
 
-            List<User> users = User.listAll();
-
-            for (User user : users) {
-                List<RowFromServer> rowsForUser = RowFromServer.find("user_id", user.id).list();
-
-                Collector[] collectors = {
-                        new AttemptsCollectorV2(),
-                        new FinalStatusCollector(),
-                };
-
-                CollectorManager cm = new CollectorManager(collectors);
-
-                List<String> lines = new ArrayList<>();
-
-                for (RowFromServer row : rowsForUser) {
-                    lines.add(row.createCSVLineFromRow());
-                }
-            }
+//            List<User> users = User.listAll();
+//
+//            for (User user : users) {
+//                List<RowFromServer> rowsForUser = RowFromServer.find("user_id", user.id).list();
+//
+//                Collector[] collectors = {
+//                        new AttemptsCollectorV2(),
+//                        new FinalStatusCollector(),
+//                };
+//
+//                CollectorManager cm = new CollectorManager(collectors);
+//
+//                List<String> lines = new ArrayList<>();
+//
+//                for (RowFromServer row : rowsForUser) {
+//                    lines.add(row.createCSVLineFromRow());
+//                }
+//            }
 
 
             Quarkus.waitForExit();
