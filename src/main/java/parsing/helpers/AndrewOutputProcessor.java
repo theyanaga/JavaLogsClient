@@ -10,6 +10,7 @@ public class AndrewOutputProcessor {
 
     private static final String ATTEMPTS = "attempts";
     private static final String FINAL_STATUS = "finished as";
+    private static final String TEST_SCORE = "score was";
 
     public static List<LocalTest> processInput(List<String> strings, Assignment assignment) {
 
@@ -44,6 +45,9 @@ public class AndrewOutputProcessor {
         }
         else if (attribute.equalsIgnoreCase(FINAL_STATUS)) {
             test.setStatus(value);
+        }
+        else if (attribute.equalsIgnoreCase(TEST_SCORE)) {
+            //TODO
         }
     }
 

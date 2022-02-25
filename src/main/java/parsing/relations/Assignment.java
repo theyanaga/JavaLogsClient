@@ -15,6 +15,8 @@ public class Assignment extends PanacheEntity {
     @JoinColumn(name="course_id")
     private Course course;
 
+    private float maxScore;
+
     public Assignment(int aNumber, Course aCourse) {
         this.number = aNumber;
         setCourse(aCourse);

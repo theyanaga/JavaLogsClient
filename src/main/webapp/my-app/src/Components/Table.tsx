@@ -71,7 +71,6 @@ e.g 1, 53, 74 ... (15)
 
 */
 export default function TestTable(this: any) {
-//   const [testNames, setTestNames] = useState([]);
   const [usersWithTests, setUsersWithTests] = useState<UserWithTests[]>([]);
   const [testNames, setTestNames] = useState([]);
   const [areTestsLoading, setAreTestsLoading] = useState(true);
@@ -128,7 +127,7 @@ export default function TestTable(this: any) {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {userWithTest.user.id}
+                {userWithTest.user.firstName + " " + userWithTest.user.lastName}
               </TableCell>
               {userWithTest.tests.map((test) => (
                 <TableCell align="center">{test.status}</TableCell>

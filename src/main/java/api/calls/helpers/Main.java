@@ -57,29 +57,24 @@ public class Main {
         @Transactional(Transactional.TxType.REQUIRED)
         public int run(String[] args) throws Exception {
 
-////            List<User> users = User.listAll();
-////
-////            for (User user : users) {
-////                List<RowFromServer> rowsForUser = RowFromServer.find("user_id", user.id).list();
-////
-////                Collector[] collectors = {
-////                        new AttemptsCollectorV2(),
-////                        new FinalStatusCollector(),
-////                };
-////
-////                CollectorManager cm = new CollectorManager(collectors);
-////
-////                List<String> lines = new ArrayList<>();
-////
-////                for (RowFromServer row : rowsForUser)  {
-////                    lines.add(row.createCSVLineFromRow());
-////                }
-////
-//            Query userQuery = em.createQuery("select u from TestNameRelation tn inner join TestStatusRelation ts on tn.testId = ts.testId " +
-//                    "inner join TestUserRelation tu on ts.testId = tu.testId inner join User u on tu.userId = u.id where tn.testNameId=:testNameId and ts.status=:status")
-//                    .setParameter("testNameId", (long)3901).setParameter("status", TestStatus.PASS)
-//                    .setMaxResults(3);
-//            System.out.println(userQuery.getResultList());
+            List<User> users = User.listAll();
+
+            for (User user : users) {
+                List<RowFromServer> rowsForUser = RowFromServer.find("user_id", user.id).list();
+
+                Collector[] collectors = {
+                        new AttemptsCollectorV2(),
+                        new FinalStatusCollector(),
+                };
+
+                CollectorManager cm = new CollectorManager(collectors);
+
+                List<String> lines = new ArrayList<>();
+
+                for (RowFromServer row : rowsForUser) {
+                    lines.add(row.createCSVLineFromRow());
+                }
+            }
 
 
             Quarkus.waitForExit();

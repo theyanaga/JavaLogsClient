@@ -19,6 +19,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +30,7 @@ public class GraphsResource {
     @Inject
     EntityManager em;
 
-    @Path("/testsPassedBarGraph")
+    @Path("/testsPassedBarGraphSortedByName")
     @GET
     @Transactional
     @Produces(MediaType.APPLICATION_JSON)
@@ -58,5 +60,23 @@ public class GraphsResource {
         }
 
         return tests;
+    }
+
+    @Path("/testsPassedBarGraphAscendingOrders")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserBarGraphEntity> getUserBarChartGraphInAscendingOrder() {
+        List<UserBarGraphEntity> graphData = getUserBarChartGraph();
+        graphData.sort(Comparator.comparing(UserBarGraphEntity::getCountOfPassed));
+        return graphData;
+    }
+
+    @Path("/testsPassedBarGraphDescendingOrders")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserBarGraphEntity> getUserBarChartGraphInDescendingOrder() {
+        List<UserBarGraphEntity> graphData = getUserBarChartGraphInAscendingOrder();
+        Collections.reverse(graphData);
+        return graphData;
     }
 }

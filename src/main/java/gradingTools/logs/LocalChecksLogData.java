@@ -7,10 +7,7 @@ import java.util.List;
 
 import gradingTools.logs.localChecksStatistics.collectors.Collector;
 import gradingTools.logs.localChecksStatistics.collectors.IntervalReplayer.*;
-import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.AttemptsCollectorV2;
-import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.FinalStatusCollector;
-import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.TotalAttemptsCollector;
-import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.WorkTimeCollector;
+import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.*;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.CollectorManager;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.LocalLogDataAnalyzer;
 import static gradingTools.logs.localChecksStatistics.compiledLogGenerator.LocalLogDataAnalyzer.ALL_ASSIGNMENTS;
@@ -113,9 +110,10 @@ public class LocalChecksLogData {
 	
 	public static void main(String[] args) {
 		Collector [] collectors = {
-			new AttemptsCollectorV2(),
-				new FinalStatusCollector(),
-				new TotalAttemptsCollector()
+//			new AttemptsCollectorV2(),
+//				new FinalStatusCollector(),
+//				new TotalAttemptsCollector(),
+				new TestScoreCollector()
 //			new ContextBasedWorkTimeIRCollector(),
 //			new FixedWorkTimeIRCollector(),
 //			new EditsIRCollector(),
