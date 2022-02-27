@@ -11,7 +11,7 @@ public class TestScoreCollector extends AbstractCollector  {
 
     @Override
     protected String getHeaderPhrase() {
-        return " score was";
+        return " score";
     }
 
     public TestScoreCollector() {
@@ -29,7 +29,7 @@ public class TestScoreCollector extends AbstractCollector  {
             float testPoints = Float.parseFloat(testScores[0]);
             float testTotalPoints = Float.parseFloat(testScores[1]);
             String resultString = testPoints + "/" + testTotalPoints;
-            if (findIndex(testAndScore[0]) > 0) {
+            if (findIndex(testAndScore[0]) >= 0) {
                 results[findIndex(testAndScore[0])] = resultString;
             }
         }

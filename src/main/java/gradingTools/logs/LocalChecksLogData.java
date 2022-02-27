@@ -125,8 +125,23 @@ public class LocalChecksLogData {
 		File project = new File("src/main/resources/LogFolder");
 		
 		List<String> data = getData(project,"1",collectors);
-		
-		System.out.println(data);
+
+		float scoreSum = 0;
+		float totalScoreSum = 0;
+
+		for (String testScore : data) {
+			String[] testNameAndScore = testScore.split(":");
+			String testName = testNameAndScore[0].split(" ")[0];
+			if (!testNameAndScore[1].equalsIgnoreCase("null")) {
+				String[] scoreAndTotalScore = testNameAndScore[1].split("/");
+				float score = Float.parseFloat(scoreAndTotalScore[0]);
+				scoreSum = scoreSum + score;
+				float totalScore = Float.parseFloat(scoreAndTotalScore[1]);
+				totalScoreSum = totalScore + totalScoreSum;
+			}
+		}
+
+		System.out.println(scoreSum + "/" + totalScoreSum);
 	}
 	
 	

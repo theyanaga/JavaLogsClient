@@ -4,6 +4,7 @@ import Table from './Components/Table';
 import TestFocusedTable from './Components/TestFocusedTable';
 import Home from './Components/Pages/Home';
 import Example from './Components/TestGraph';
+import ScoreGraph from './Components/ScoreGraph';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="table" element={<Table/>}/>
         <Route path="testFocusedTable" element={<TestFocusedTable/>}/>
         <Route path="graph" element={<Example/>}/>
+        <Route path="score" element={<ScoreGraph/>}/>
       </Route> 
     </Routes>
    </BrowserRouter> 

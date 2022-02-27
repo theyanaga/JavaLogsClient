@@ -1,8 +1,10 @@
 package api.calls.helpers;
 
+import gradingTools.logs.LocalChecksLogData;
 import gradingTools.logs.localChecksStatistics.collectors.Collector;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.AttemptsCollectorV2;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.FinalStatusCollector;
+import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.TestScoreCollector;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.CollectorManager;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.LocalLogDataAnalyzer;
 import io.quarkus.runtime.Quarkus;
@@ -19,6 +21,7 @@ import parsing.relations.*;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.Order;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,26 +59,6 @@ public class Main {
         @Override
         @Transactional(Transactional.TxType.REQUIRED)
         public int run(String[] args) throws Exception {
-
-//            List<User> users = User.listAll();
-//
-//            for (User user : users) {
-//                List<RowFromServer> rowsForUser = RowFromServer.find("user_id", user.id).list();
-//
-//                Collector[] collectors = {
-//                        new AttemptsCollectorV2(),
-//                        new FinalStatusCollector(),
-//                };
-//
-//                CollectorManager cm = new CollectorManager(collectors);
-//
-//                List<String> lines = new ArrayList<>();
-//
-//                for (RowFromServer row : rowsForUser) {
-//                    lines.add(row.createCSVLineFromRow());
-//                }
-//            }
-
 
             Quarkus.waitForExit();
             return 0;

@@ -35,10 +35,12 @@ export interface User {
     machineId: string;
     firstName: string;
     lastName: string;
+    fullName: string;
 }
 
 export interface UserWithTests{
     user: User;
+    sumOfScores: number;
     tests: LocalTest[]
 }
 

@@ -48,9 +48,9 @@ public class LocalTest extends PanacheEntity {
     @Enumerated(EnumType.STRING)
     public TestStatus status;
 
-    private float score;
+    private float pointsGained;
 
-    private float totalScore;
+    private float pointsTotal;
 
     private float attempts;
 
@@ -65,20 +65,20 @@ public class LocalTest extends PanacheEntity {
         this.assignmentId = name.id;
     }
 
-    public float getScore() {
-        return score;
+    public float getPointsGained() {
+        return pointsGained;
     }
 
-    public void setScore(float score) {
-        this.score = score;
+    public void setPointsGained(float pointsGained) {
+        this.pointsGained = pointsGained;
     }
 
-    public float getTotalScore() {
-        return totalScore;
+    public float getPointsTotal() {
+        return pointsTotal;
     }
 
-    public void setTotalScore(float totalScore) {
-        this.totalScore = totalScore;
+    public void setPointsTotal(float pointsTotal) {
+        this.pointsTotal = pointsTotal;
     }
 
     public float getAttempts() {

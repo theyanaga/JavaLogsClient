@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Cacheable
 public class Assignment extends PanacheEntity {
 
     private int number;
@@ -15,7 +14,10 @@ public class Assignment extends PanacheEntity {
     @JoinColumn(name="course_id")
     private Course course;
 
+    @Column(name="max_score")
     private float maxScore;
+
+
 
     public Assignment(int aNumber, Course aCourse) {
         this.number = aNumber;
@@ -32,6 +34,18 @@ public class Assignment extends PanacheEntity {
             course.persist();
         }
         this.course = course;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public float getMaxScore() {
+        return maxScore;
     }
 
     public Assignment() {

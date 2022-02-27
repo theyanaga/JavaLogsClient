@@ -7,6 +7,7 @@ import parsing.entities.projections.UserId;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,9 @@ public class User extends PanacheEntity {
     public String firstName;
 
     public String lastName;
+
+    @Transient
+    private String fullName;
 
     public User(String machineId) {
         this.machineId = machineId;
@@ -57,6 +61,14 @@ public class User extends PanacheEntity {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public void setLastName(String lastName) {
