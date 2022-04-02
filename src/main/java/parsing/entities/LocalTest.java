@@ -1,6 +1,7 @@
 package parsing.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import io.quarkus.panache.common.Parameters;
 import parsing.relations.TestName;
 
 import javax.persistence.*;
@@ -107,6 +108,17 @@ public class LocalTest extends PanacheEntity {
 
     public void setAssignmentId(long assignmentId) {
         this.assignmentId = assignmentId;
+        TestNameWithAssignment testNameWithAssignment = TestNameWithAssignment.find("testNameId = :testNameId and assignmentId = : assignmentId",
+                Parameters.with("testNameId", this.testNameId).and("assignmentId", assignmentId).map()).firstResult();
+        if (!(testNameWithAssignment == null)) {
+            testNameWithAssignment.persist();
+        }
+        else {
+            TestNameWithAssignment aTestNameWithAssignment = new TestNameWithAssignment();
+            aTestNameWithAssignment.setTestNameId(this.testNameId);
+            aTestNameWithAssignment.setAssignmentId(this.assignmentId);
+            aTestNameWithAssignment.persistAndFlush();
+        }
     }
 
     public void setStatus(TestStatus status) {
@@ -128,5 +140,19 @@ public class LocalTest extends PanacheEntity {
 
     public long getAssignmentId() {
         return assignmentId;
+    }
+
+    @Override
+    public String toString() {
+        return "LocalTest{" +
+                "userId=" + userId +
+                ", testNameId=" + testNameId +
+                ", assignmentId=" + assignmentId +
+                ", status=" + status +
+                ", pointsGained=" + pointsGained +
+                ", pointsTotal=" + pointsTotal +
+                ", attempts=" + attempts +
+                ", id=" + id +
+                '}';
     }
 }

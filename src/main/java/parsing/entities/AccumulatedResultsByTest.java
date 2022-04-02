@@ -47,20 +47,24 @@ public class AccumulatedResultsByTest {
 
     private long numberOfUsersThatDidNotRunTest;
 
-    public void insertUserTestResult(LocalTest test, User user) {
-        switch (test.getStatus()) {
+    public void insertUserTestResult(TestStatus status, User user) {
+        switch (status) {
             case PASS:
                 this.usersThatPassed.add(user);
                 this.numberOfUsersThatPassed++;
+                break;
             case PARTIAL:
                 this.usersThatPartiallyPassed.add(user);
                 this.numberOfUsersThatPartiallyPassed++;
+                break;
             case FAIL:
                 this.usersThatFailed.add(user);
                 this.numberOfUsersThatFailed++;
+                break;
             case UNTESTED:
                 this.usersThatDidNotRunTest.add(user);
                 this.numberOfUsersThatDidNotRunTest++;
+                break;
         }
     }
 

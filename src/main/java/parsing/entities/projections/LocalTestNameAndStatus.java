@@ -3,14 +3,12 @@ package parsing.entities.projections;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import parsing.entities.TestStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedNativeQuery;
-import javax.persistence.SqlResultSetMapping;
+import javax.persistence.*;
 
 @RegisterForReflection
 public class LocalTestNameAndStatus {
-    private final long testNameId;
-    private final TestStatus status;
+    private  long testNameId;
+    private  TestStatus status;
 
     public LocalTestNameAndStatus(long testNameId, TestStatus status) {
         this.testNameId = testNameId;
@@ -23,5 +21,13 @@ public class LocalTestNameAndStatus {
 
     public TestStatus getStatus() {
         return status;
+    }
+
+    public void setTestNameId(long testNameId) {
+        this.testNameId = testNameId;
+    }
+
+    public void setStatus(TestStatus status) {
+        this.status = status;
     }
 }

@@ -10,6 +10,7 @@ export default function Home() {
             <Link to="/testFocusedTable"> Test Focused Table </Link>
             <Link to="/graph"> Graph </Link>
             <Link to="/score"> Score </Link>
+            <Link to="/network"> Network</Link>
             <Outlet/>
         </div>
     );

@@ -33,6 +33,7 @@ public class User extends PanacheEntity {
 
     public User(String machineId) {
         this.machineId = machineId;
+        this.persistAndFlush();
     }
 
     public User() {

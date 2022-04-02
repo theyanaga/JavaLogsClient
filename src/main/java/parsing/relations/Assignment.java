@@ -22,6 +22,7 @@ public class Assignment extends PanacheEntity {
     public Assignment(int aNumber, Course aCourse) {
         this.number = aNumber;
         setCourse(aCourse);
+        this.persist();
     }
 
     public static Assignment of (int aNumber, Course aCourse) {
@@ -46,6 +47,10 @@ public class Assignment extends PanacheEntity {
 
     public float getMaxScore() {
         return maxScore;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public Assignment() {

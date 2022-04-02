@@ -10,7 +10,7 @@ public class AndrewOutputProcessor {
 
     private static final String ATTEMPTS = "attempts";
     private static final String FINAL_STATUS = "finished as";
-    private static final String TEST_SCORE = "score was";
+    private static final String TEST_SCORE = "score";
 
     public static List<LocalTest> processInput(List<String> strings, Assignment assignment) {
 
@@ -47,7 +47,11 @@ public class AndrewOutputProcessor {
             test.setStatus(value);
         }
         else if (attribute.equalsIgnoreCase(TEST_SCORE)) {
-            //TODO
+            if (!value.equalsIgnoreCase("null")) {
+                String[] valueSplits = value.split("/");
+                test.setPointsGained(Float.parseFloat(valueSplits[0]));
+                test.setPointsTotal(Float.parseFloat(valueSplits[1]));
+            }
         }
     }
 

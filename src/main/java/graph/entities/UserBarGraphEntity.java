@@ -1,5 +1,7 @@
 package graph.entities;
 
+import parsing.entities.TestStatus;
+
 public class UserBarGraphEntity {
 
     private String testName;
@@ -26,6 +28,37 @@ public class UserBarGraphEntity {
 
     public String getTestName() {
         return testName;
+    }
+
+    private void addPassed() {
+        this.countOfPassed++;
+    }
+
+    private void addFailed() {
+        this.countOfFailed++;
+    }
+
+    private void addPartial() {
+        this.countOfPartiallyPassed++;
+    }
+
+    private void addUntested() {
+        this.countOfUntested++;
+    }
+
+    public void addTestResult(TestStatus status) {
+        if (status == TestStatus.PASS) {
+            this.addPassed();
+        }
+        else if (status == TestStatus.PARTIAL) {
+            this.addPartial();
+        }
+        else if (status == TestStatus.FAIL) {
+            this.addFailed();
+        }
+        else {
+            this.addUntested();
+        }
     }
 
     public long getCountOfPassed() {

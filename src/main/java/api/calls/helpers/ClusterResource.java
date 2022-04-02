@@ -26,7 +26,7 @@ public class ClusterResource {
     @Transactional
     public Map<Integer, List<User>> getClusters() {
 
-        List<Long> userIds = (List<Long>) em.createQuery("select u.id from User u").getResultList();
+        List<Long> userIds = (List<Long>)em.createQuery("select u.id from User u").getResultList();
 
         Query query = em.createQuery("select tn.testNameId from TestNameRelation tn inner join TestStatusRelation ts on tn.testId = ts.testId inner join TestUserRelation tu" +
                 " on tu.testId = tn.testId where tu.userId =:userId and ts.status =:status");
@@ -34,7 +34,7 @@ public class ClusterResource {
         Map<Integer, List<User>> map = new HashMap<>();
 
         for (Long id : userIds) {
-            List<Long> testIds = (List<Long>)query.setParameter("userId", id).setParameter("status", TestStatus.PASS).getResultList();
+            List<Long> testIds = query.setParameter("userId", id).setParameter("status", TestStatus.PASS).getResultList();
             Arrays.sort(testIds.toArray());
             System.out.println(testIds);
             int hash = testIds.hashCode();

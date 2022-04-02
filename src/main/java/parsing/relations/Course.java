@@ -25,6 +25,7 @@ public class Course extends PanacheEntity {
         this.className = className;
         this.season = season;
         this.year = year;
+        this.persist();
     }
 
     public static Course of(String className, Season season, int year) {
@@ -34,5 +35,29 @@ public class Course extends PanacheEntity {
 
     public Course() {
 
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 }
