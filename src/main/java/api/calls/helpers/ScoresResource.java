@@ -35,11 +35,11 @@ public class ScoresResource {
         List<UserWithTests> retVal = new ArrayList<>();
 
         List<User> users = User.getEntityManager().createQuery("select distinct u from LocalTest t inner join User u on t.userId = u.id where t.assignmentId =:assignment", User.class)
-                .setParameter("assignment", (long)53584).getResultList();
+                .setParameter("assignment", (long)163824).getResultList();
 
-        TypedQuery<Integer> highestSessionNumberQuery = Session.getEntityManager().createQuery("select max(s.sessionId) from LocalTest lt inner join TestAndSession ts on lt.id = ts.testId inner join Session s on ts.sessionId = s.id where lt.userId =: userId and lt.assignmentId = 53584", Integer.class);
+        TypedQuery<Integer> highestSessionNumberQuery = Session.getEntityManager().createQuery("select max(s.sessionId) from LocalTest lt inner join TestAndSession ts on lt.id = ts.testId inner join Session s on ts.sessionId = s.id where lt.userId =: userId and lt.assignmentId = 163824", Integer.class);
 
-        TypedQuery<Float> query  = LocalTest.getEntityManager().createQuery("select lt.pointsGained from LocalTest lt inner join TestAndSession ts on lt.id = ts.testId inner join Session s on ts.sessionId = s.id where lt.userId =: userId and lt.assignmentId = 53584 and s.sessionId =:sessionId", Float.class);
+        TypedQuery<Float> query  = LocalTest.getEntityManager().createQuery("select lt.pointsGained from LocalTest lt inner join TestAndSession ts on lt.id = ts.testId inner join Session s on ts.sessionId = s.id where lt.userId =: userId and lt.assignmentId = 163824 and s.sessionId =:sessionId", Float.class);
 
         for (User user : users) {
             List<Float> points = query.setParameter("userId", user.id).setParameter("sessionId",highestSessionNumberQuery.setParameter("userId", user.id).getSingleResult()).getResultList();

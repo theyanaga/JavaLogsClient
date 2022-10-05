@@ -15,7 +15,7 @@ export default function NetworkGraph(this: any) {
           { id: 5, label: "Node 5", title: "node 5 tootip text" }
         ],
         edges: [
-          { from: 1, to: 2 },
+          { from: 1, to: 2, label: "test" },
           { from: 1, to: 3 },
           { from: 2, to: 4 },
           { from: 2, to: 5 }

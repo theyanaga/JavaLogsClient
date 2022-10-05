@@ -40,9 +40,9 @@ public class LogsResource {
     @ClientHeaderParam(name="Content-Type", value="application/json")
     public int persistLogs() throws IOException {
 
-        long skip = RowFromServer.count();
+        long skip = 610;
 
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 56; i++) {
             ServerOutputWrapper wrapper = logsService.getLogs(ServerInputWrapper.createServerRequest(
                     (int) (skip + i)
             ));
@@ -51,9 +51,9 @@ public class LogsResource {
 
             User users = User.of(wrapper.getLogs().get(0).getMachineId());
 
-            Course course = Course.of(Course.COMP_524, Season.FALL, 2021);
+            Course course = Course.of(Course.JAVA_THREADS, Season.SUMMER, 2022);
 
-            Assignment assignment = Assignment.of(2, course);
+            Assignment assignment = Assignment.of(1, course);
 
             RowFromServer serverRow = RowFromServer.of(users, assignment, csvLine);
             serverRow.persistAndFlush();
@@ -76,9 +76,9 @@ public class LogsResource {
 
         User users = User.of(wrapper.getLogs().get(0).getMachineId());
 
-        Course course = Course.of(Course.COMP_524, Season.FALL, 2021);
+        Course course = Course.of(Course.JAVA_THREADS, Season.SUMMER, 2022);
 
-        Assignment assignment = Assignment.of(2, course);
+        Assignment assignment = Assignment.of(1, course);
 
         RowFromServer serverRow = RowFromServer.of(users, assignment, csvLine);
         serverRow.persist();

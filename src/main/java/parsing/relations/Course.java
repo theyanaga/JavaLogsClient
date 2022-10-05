@@ -13,6 +13,7 @@ public class Course extends PanacheEntity {
 
     public static final String COMP_524 = "COMP524";
     public static final String COMP_533 = "COMP533";
+    public static final String JAVA_THREADS = "JavaThreads";
 
     private String className;
 
@@ -25,7 +26,7 @@ public class Course extends PanacheEntity {
         this.className = className;
         this.season = season;
         this.year = year;
-        this.persist();
+        this.persistAndFlush();
     }
 
     public static Course of(String className, Season season, int year) {

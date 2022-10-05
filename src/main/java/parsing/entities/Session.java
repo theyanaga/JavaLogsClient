@@ -3,10 +3,12 @@ package parsing.entities;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.panache.common.Parameters;
 
-import javax.persistence.Entity;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Objects;
+import java.util.SimpleTimeZone;
 
 @Entity
 public class Session extends PanacheEntity {
@@ -14,6 +16,16 @@ public class Session extends PanacheEntity {
     private int sessionId;
 
     private long userId;
+
+    private ZonedDateTime time;
+
+    public ZonedDateTime getTime() {
+        return time;
+    }
+
+    public void setZonedDateTime(ZonedDateTime time) {
+        this.time = time;
+    }
 
     public Session() {
 

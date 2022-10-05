@@ -25,10 +25,13 @@ import parsing.relations.*;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.Order;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -45,51 +48,39 @@ public class Main {
     public static class MyApp implements QuarkusApplication {
 
         @Inject
-        ThreadContext threadContext;
-        @Inject
-        ManagedExecutor managedExecutor;
-
-        public static final String MY_PATH = "/Users/felipeyanaga/UNC/Research/LocalCheckLogs/";
-
-        public static final int SKIP = 1741; // stop at 1745
-
-        @Inject
-        @RestClient
-        LogsService logsService;
-
-        @Inject
         EntityManager em;
-
-        private static final Logger LOG = Logger.getLogger(Main.class);
 
         @Override
         @Transactional(Transactional.TxType.REQUIRED)
         public int run(String[] args) throws Exception {
 
-//            List<User> users = User.getEntityManager().createQuery("select distinct t.user from RowFromServer t where t.assignment =:assignment", User.class).setParameter("assignment", Assignment.findById((long)53584)).getResultList();
+//            List<User> users = User.getEntityManager().createQuery("select t.user from RowFromServer t where t.assignment =:assignment", User.class).setParameter("assignment", Assignment.findById((long)163824)).getResultList();
+
+//            List<User> users = User.getEntityManager().createQuery("select u from User u where u.id = 163829", User.class).getResultList();
 //
-//            TypedQuery<Long> typedQuery = User.getEntityManager().createQuery("select distinct t.userId from LocalTest t where t.assignmentId = 53584", Long.class);
+//            TypedQuery<Tuple> sessionAndTimeQuery = RowFromServer.getEntityManager().createQuery("select distinct t.sessionNumber, t.time from RowFromServer t where t.user =:user and t.assignment =:assignmentId", Tuple.class);
 //
-//            List<Long> usersAlreadyPersisted = typedQuery.getResultList();
-//
-//            Query query = RowFromServer.getEntityManager().createQuery("select distinct t.sessionNumber from RowFromServer t where t.user =:user and t.assignment =:assignmentId");
-//
-//            Query anotherQuery = RowFromServer.getEntityManager().createQuery("select t from RowFromServer t where t.user =:user and t.sessionNumber =:sessionNumber and t.assignment =:assignmentId");
+//            Query anotherQuery = RowFromServer.getEntityManager().createQuery("select t from RowFromServer t where t.user =:user and t.sessionNumber <=:sessionNumber and t.assignment =:assignmentId");
 //
 //            for (User user : users) {
 //
-//                if (!(usersAlreadyPersisted.contains(user.id))) {
-//                    List sessionNumbers = query.setParameter("user", user).setParameter("assignmentId", Assignment.findById((long)53584)).getResultList();
-//                    for (Object o : sessionNumbers) {
-//                        int sessionNumber = (int) o;
+//                    List<Tuple> sessionNumbers = sessionAndTimeQuery.setParameter("user", user).setParameter("assignmentId", Assignment.findById((long)163824)).getResultList();
+//                    for (Tuple tuple : sessionNumbers) {
+//                        int sessionNumber = (int) tuple.get(0);
 //
-//                        Session session = Session.getSession((int) o,  user.id);
+//                        Session session = Session.getSession(sessionNumber,  user.id);
+//
+//                        session.setZonedDateTime((ZonedDateTime) tuple.get(1));
+//
+//                        em.merge(session);
+//
+//                        em.flush();
 //
 //                        if (!session.isPersistent()) {
 //                            session.persist();
 //                        }
 //
-//                        List rows = anotherQuery.setParameter("user", user).setParameter("sessionNumber", sessionNumber).setParameter("assignmentId", Assignment.findById((long)53584)).getResultList();
+//                        List rows = anotherQuery.setParameter("user", user).setParameter("sessionNumber", sessionNumber).setParameter("assignmentId", Assignment.findById((long)163824)).getResultList();
 //
 //                        List<String> csvRows = new ArrayList<>();
 //
@@ -106,7 +97,7 @@ public class Main {
 //
 //                        List<String> outputFromAndrew = LocalLogDataAnalyzer.runEvaluationFromDatabase(csvRows, cm);
 //
-//                        List<LocalTest> tests = AndrewOutputProcessor.processInput(outputFromAndrew, Assignment.findById((long)53584));
+//                        List<LocalTest> tests = AndrewOutputProcessor.processInput(outputFromAndrew, Assignment.findById((long)163824));
 //
 //                        for (LocalTest test : tests) {
 //                            test.setUserId(((User) user).id);
@@ -118,27 +109,6 @@ public class Main {
 //                        }
 //                    }
 //                }
-//
-//            }
-
-//            TypedQuery<Long> userIds = User.getEntityManager().createQuery("select u.id from User u where u.id = 53586", Long.class);
-//
-//            List<Long> users = userIds.getResultList();
-//
-//            for (Long aLong : users) {
-//                User user = User.findById(aLong);
-//                Faker faker = new Faker();
-//
-//                user.setFirstName(faker.name().firstName());
-//                user.setLastName(faker.name().lastName());
-//
-//                User.getEntityManager().merge(user);
-//
-//                user.persistAndFlush();
-//
-//            }
-
-//            System.out.println(tests);
 
             Quarkus.waitForExit();
             return 0;
