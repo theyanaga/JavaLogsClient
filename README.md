@@ -1,4 +1,54 @@
-# code-with-quarkus Project
+# Dr. Dewan Grading Proxy Server
+
+## Required Software
+- Java
+- Maven
+- Quarkus
+- PostgreSQL
+
+## Populating the PostgreSQL Database
+
+In order to run the PostgreSQL database, you must have it installed, but once you have done that, you should be able to just dump the data from the following file into your database to create it and populate it with the right data.
+
+The file mentioned can be found in the `src/main/resources/dewan-database-with-data.sql`
+
+## How to create and view assignments
+
+If you go to the `src/main/java/api/calls/internal/AssignmentsResource` you will see two endpoints: one for creation and another for visualization.
+
+By running `quarkus dev` and going to the following url: http://localhost:8080/q/swagger-ui/ . You should be able to see all the current application end points, like this: 
+
+![Screen Shot 2023-01-27 at 8.29.57 AM.png](..%2F..%2FDesktop%2FScreen%20Shot%202023-01-27%20at%208.29.57%20AM.png)
+
+If you go to the `GET /assignment-information/` end point and execute it, you should be able to see something like this: 
+
+![Screen Shot 2023-01-27 at 8.31.17 AM.png](..%2F..%2FDesktop%2FScreen%20Shot%202023-01-27%20at%208.31.17%20AM.png)
+
+This shows all the current created assignments, in order to create one, just use the POST end point.
+
+## Pulling Logs from Server
+
+Open the `src/main/java/api/calls/internal/LogsResource.java` file, this is the method use to pull data from the server.
+
+The file uses the specifications set in `src/main/java/api/calls/internal/ServerInputWrapper.java` to retrieve the data. In order to change the data you are requesting, just change the constants in the file.
+
+When you are ready to start pulling data from the server, just try it out.
+
+## Creating CSV Files from Database Rows
+
+In order to create database files for analysis, all you need to do is go to `src/main/java/api/calls/internal/CSVResource.java` that is the code to create anonymized CSV files for each student. 
+
+It can be called in the same way as other endpoints, by simply going to the following directory: http://localhost:8080/q/swagger-ui/ . 
+
+In the end, the files should appear in the `src/main/resources/student-logs/` folder.
+
+## Running the website and having information fed through this server
+
+The front-end page is located in the `src/main/webapp/my-app` directory, if you navigate to it and run `npm start`, you should see the website show up.
+
+Make sure to run the `quarkus dev` command in the main directory of the project before, so that the server can feed data to the front-end application.
+
+# How to install software
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 

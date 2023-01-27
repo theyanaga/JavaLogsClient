@@ -79,7 +79,7 @@ export default function TestTable(this: any) {
   const [areTestNamesLoading, setAreTestNamesLoading] = useState(true);
 
   function getDataFromServer() {
-     fetch("http://localhost:8080/potato/allUsers", {
+     fetch("http://localhost:8080/assignments/allUsers", {
       method: "GET",
     })
       .then((response) => response.json())
@@ -90,7 +90,7 @@ export default function TestTable(this: any) {
   }
   
   function getTestNames() {
-     fetch("http://localhost:8080/potato/salad", {
+     fetch("http://localhost:8080/assignments/test-names", {
       method: "GET",
     })
       .then((response) => response.json())

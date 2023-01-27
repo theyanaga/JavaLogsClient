@@ -1,6 +1,7 @@
 package api.calls.helpers;
 
 import api.calls.entities.ServerOutput;
+import api.calls.resources.internal.LogsResource;
 
 import java.io.File;
 import java.io.FileOutputStream;

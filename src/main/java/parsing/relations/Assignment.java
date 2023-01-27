@@ -17,8 +17,6 @@ public class Assignment extends PanacheEntity {
     @Column(name="max_score")
     private float maxScore;
 
-
-
     public Assignment(int aNumber, Course aCourse) {
         this.number = aNumber;
         setCourse(aCourse);
