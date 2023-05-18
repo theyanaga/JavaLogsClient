@@ -18,11 +18,11 @@ If you go to the `src/main/java/api/calls/internal/AssignmentsResource` you will
 
 By running `quarkus dev` and going to the following url: http://localhost:8080/q/swagger-ui/ . You should be able to see all the current application end points, like this: 
 
-![Screen Shot 2023-01-27 at 8.29.57 AM.png](..%2F..%2FDesktop%2FScreen%20Shot%202023-01-27%20at%208.29.57%20AM.png)
+![Screen Shot 2023-01-27 at 8.29.57 AM.png](./Screen%20Shot%202023-01-27%20at%208.29.57%20AM.png)
 
 If you go to the `GET /assignment-information/` end point and execute it, you should be able to see something like this: 
 
-![Screen Shot 2023-01-27 at 8.31.17 AM.png](..%2F..%2FDesktop%2FScreen%20Shot%202023-01-27%20at%208.31.17%20AM.png)
+![Screen Shot 2023-01-27 at 8.31.17 AM.png](./Screen%20Shot%202023-01-27%20at%208.31.17%20AM.png)
 
 This shows all the current created assignments, in order to create one, just use the POST end point.
 
