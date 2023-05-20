@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import gradingTools.logs.localChecksStatistics.collectors.Collector;
-import gradingTools.logs.localChecksStatistics.collectors.IntervalReplayer.AbstractIntervalReplayerBasedCollector;
 
 public class LocalLogDataAnalyzer {
 	private static final int TEST_PASS_INDEX=5,TEST_PARTIAL_INDEX=6,TEST_FAIL_INDEX=7,TEST_UNTESTED_INDEX=8, MAXIMUM_ASSIGNMENTS=20;
@@ -79,9 +78,6 @@ public class LocalLogDataAnalyzer {
 			if(c.requiresSuiteMapping())
 				throw new IllegalArgumentException("Tests which require suite to test mapping are unable to be run currently");
 			
-			//A quick solution for code integration
-			if(c instanceof AbstractIntervalReplayerBasedCollector)
-				((AbstractIntervalReplayerBasedCollector)c).setStudentProjectLocation(eclipseDirectory);
 		}
 		
 

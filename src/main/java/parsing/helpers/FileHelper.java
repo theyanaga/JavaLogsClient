@@ -21,8 +21,6 @@ import java.util.List;
 
 public class FileHelper {
 
-
-
     public static void main(String[] args) throws IOException {
         Reader in = new FileReader("/Users/felipeyanaga/Downloads/comp533s22_assignment1_S22Assignment1SuiteFineGrained.csv");
         CSVParser parser = new CSVParser(in, CSVFormat.DEFAULT.builder().setHeader("#, Time, %Passes, Change, Test, Pass, Partial, Fail, Untested, SessionNumber, SessionRunNumber, IsSuite, SuiteTests, PrerequisiteTests, ExtraCreditTests, TestScores, FailFromPreReq, Blank").setSkipHeaderRecord(true).build());
@@ -37,13 +35,6 @@ public class FileHelper {
                 new AttemptsCollectorV2(),
                 new FinalStatusCollector(),
                 new TotalAttemptsCollector()
-//			new ContextBasedWorkTimeIRCollector(),
-//			new FixedWorkTimeIRCollector(),
-//			new EditsIRCollector(),
-//			new RunsIRCollector(),
-//			new TestFocusedContextBasedWorkTimeIRCollector(),
-//			new TestFocusedFixedWorkTimeIRCollector(),
-
         };
         File project = new File("src/main/resources/LogFolder");
 

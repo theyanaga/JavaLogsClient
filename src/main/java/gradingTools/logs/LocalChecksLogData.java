@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.List;
 
 import gradingTools.logs.localChecksStatistics.collectors.Collector;
-import gradingTools.logs.localChecksStatistics.collectors.IntervalReplayer.*;
 import gradingTools.logs.localChecksStatistics.collectors.StandardCollectors.*;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.CollectorManager;
 import gradingTools.logs.localChecksStatistics.compiledLogGenerator.LocalLogDataAnalyzer;
