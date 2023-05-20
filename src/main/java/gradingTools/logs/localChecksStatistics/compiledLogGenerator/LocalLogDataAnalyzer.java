@@ -79,21 +79,7 @@ public class LocalLogDataAnalyzer {
 				throw new IllegalArgumentException("Tests which require suite to test mapping are unable to be run currently");
 			
 		}
-		
-
-		
-		//Collector manager processess the provided log
 		cm.processLog(logData, 1);
-		
-		//Gathering Data
-//		List<String> headers = cm.getOrderedHeaders();
-//		List<String> data = cm.getOrderedData();
-//		for(int i=0;i<headers.size();i++) {
-//			output.add(headers.get(i)+", "+data.get(i));
-//			if(printOutput)
-//				System.out.println(output.get(i));
-//		}	
-		
 		List<String[]> data = cm.getCertainHeadersAndData(desiredTests);
 		for(String [] dataPoint:data) {
 			output.add(dataPoint[0]+":"+dataPoint[1]);
@@ -102,7 +88,6 @@ public class LocalLogDataAnalyzer {
 		}
 		cm.reset();
 		
-//		recordDataCheck(log, eclipseDirectory, cm);
 		return output;
 	}
 	
@@ -166,8 +151,6 @@ public class LocalLogDataAnalyzer {
 				throw new IllegalArgumentException("Tests which require suite to test mapping are unable to be run currently");
 		}
 
-
-
 		//Collector manager processess the provided log
 		cm.processLog(logData, 1);
 
@@ -175,7 +158,6 @@ public class LocalLogDataAnalyzer {
 
 		for(String [] dataPoint:data) {
 			output.add(dataPoint[0]+":"+dataPoint[1]);
-//				System.out.println(dataPoint[0]+":"+dataPoint[1]);
 		}
 		cm.reset();
 

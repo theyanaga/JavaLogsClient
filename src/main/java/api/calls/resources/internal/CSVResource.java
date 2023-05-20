@@ -41,12 +41,13 @@ public class CSVResource {
             List<RowFromServer> serverRows = RowFromServer.getEntityManager().createQuery("select r from RowFromServer r where r.assignment=:assignment and r.user=:user order by r.time", RowFromServer.class)
                     .setParameter("assignment", Assignment.findById((long) 163824)).setParameter("user", user).getResultList();
 
-            String headers = "#,Time,%Passes,Change,Test,Pass,Partial,Fail,Untested,SessionNumber,SessionRunNumber,IsSuite,SuiteTests,PrerequisiteTests,ExtraCreditTests,TestScores,FailFromPreReq\n";
+            // Uncomment this if you would like to use headers!
+            ///String headers = "#,Time,%Passes,Change,Test,Pass,Partial,Fail,Untested,SessionNumber,SessionRunNumber,IsSuite,SuiteTests,PrerequisiteTests,ExtraCreditTests,TestScores,FailFromPreReq\n";
 
-            FileWriter out = new FileWriter("./src/main/resources/student-logs/" + user.firstName + "-" + user.lastName + ".csv");
+            FileWriter out = new FileWriter("./src/main/resources/student-logs/" + user.firstName + "-" + user.lastName + ".Assignment1Suite.csv");
             CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT);
 
-            printer.printRecord((Object[]) headers.split( ","));
+           // printer.printRecord((Object[]) headers.split( ","));
 
             List<RowFromServer> filteredServerRows = new ArrayList<>();
 

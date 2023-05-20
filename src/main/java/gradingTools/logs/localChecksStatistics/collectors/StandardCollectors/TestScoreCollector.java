@@ -17,20 +17,22 @@ public class TestScoreCollector extends AbstractCollector  {
     public TestScoreCollector() {
         this.reqPass = 1;
     }
-
     @Override
     public void logData(String[] data) throws IllegalArgumentException {
         String testScoresString = data[TEST_SCORES_INDEX];
         String[] individualTestScores = testScoresString.split(" ");
         for (String test : individualTestScores) {
-            String[] testAndScore = test.split("-");
-            String[] testScores = testAndScore[1].replaceAll("\\(", "")
-                    .replaceAll("\\)","").split("/");
-            float testPoints = Float.parseFloat(testScores[0]);
-            float testTotalPoints = Float.parseFloat(testScores[1]);
-            String resultString = testPoints + "/" + testTotalPoints;
-            if (findIndex(testAndScore[0]) >= 0) {
-                results[findIndex(testAndScore[0])] = resultString;
+            test = test.trim();
+            if (!test.equalsIgnoreCase("\"")) {
+                String[] testAndScore = test.split("-");
+                String[] testScores = testAndScore[1].replaceAll("\\(", "")
+                        .replaceAll("\\)","").split("/");
+                float testPoints = Float.parseFloat(testScores[0]);
+                float testTotalPoints = Float.parseFloat(testScores[1]);
+                String resultString = testPoints + "/" + testTotalPoints;
+                if (findIndex(testAndScore[0]) >= 0) {
+                    results[findIndex(testAndScore[0])] = resultString;
+                }
             }
         }
     }
